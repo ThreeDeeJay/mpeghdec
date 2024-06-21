@@ -191,26 +191,25 @@ typedef enum {
 } converter_dmxrulesid_t;
 
 typedef struct converter_pr {
-  UINT nchanin;                     /* number of input channels */
-  UINT nchanout;                    /* number of output channels */
-  INT in_out_src[IN_OUT_N];         /* in-out conversion source */
-  INT in_out_dst[IN_OUT_N];         /* in-out conversion destination */
-  FIXP_DMX_H in_out_gain[IN_OUT_N]; /* in-out conversion gain [lin] */
-  INT in_out_proc[IN_OUT_N];        /* in-out conversion processing */
-
   FIXP_EQ_H eq[N_EQ][MAXBANDS]; /* equalizers [lin gains] */
-  INT eq_e[N_EQ];               /* equalizers exp term [lin gains] */
+
+} converter_pr_t;
+
+typedef struct converter_pr_tmp {
+  SCHAR in_out_src[IN_OUT_N];       /* in-out conversion source */
+  SCHAR in_out_dst[IN_OUT_N];       /* in-out conversion destination */
+  FIXP_DMX_H in_out_gain[IN_OUT_N]; /* in-out conversion gain [lin] */
+  SCHAR in_out_proc[IN_OUT_N];      /* in-out conversion processing */
 
   FIXP_DMX_H in_out_gainL[IN_OUT_N]; /* in-out conversion gain, G_vL [lin] */
 
   /* variables for the timbral elevation rendering */
-  INT in_out_src2[IN_OUT_N];         /* in-out conversion source */
-  INT in_out_dst2[IN_OUT_N];         /* in-out conversion destination */
+  SCHAR in_out_src2[IN_OUT_N];       /* in-out conversion source */
+  SCHAR in_out_dst2[IN_OUT_N];       /* in-out conversion destination */
   FIXP_DMX_H in_out_gain2[IN_OUT_N]; /* in-out conversion gain [lin] */
-  INT in_out_proc2[IN_OUT_N];        /* in-out conversion processing */
-  FIXP_DMX_H in_out_gaini[IN_OUT_N]; /* in-out mixing gain [lin] */
+  SCHAR in_out_proc2[IN_OUT_N];      /* in-out conversion processing */
 
-} converter_pr_t;
+} converter_pr_tmp_t;
 
 /* INDEX : FOR THE CONVENIENCE FOR ONLY HEIGHT CHANNELS */
 typedef enum { TFC = 0, TFL, TFR, TFLA, TFRA, TSL, TSR, TBLA, TBRA, TBL, TBR, TBC, VOG } H;
@@ -347,25 +346,7 @@ typedef struct T_FORMAT_CONVERTER_PARAMS {
   INT formatConverterDelay;
 
   /** center frequencies */
-  FIXP_DBL* centerFrequenciesNormalized;
-
-  /** azimuthElevationDeviation */
-  INT* azimuthElevationDeviation;
-
-  /** distance*/
-  INT* distance;
-
-  /** eqLimitMax */
-  FIXP_DBL eqLimitMax; /* value could be nearly 16 at most -> exponent = 4 */
-
-  /** eqLimitMin */
-  FIXP_DBL eqLimitMin; /* value could be -16 at least -> exponent = 4 */
-
-  /** applyEqFilters */
-  INT applyEqFilters;
-
-  /* randomFlag */
-  INT randomFlag;
+  const FIXP_DBL* centerFrequenciesNormalized;
 
 } FORMAT_CONVERTER_PARAMS;
 
@@ -384,14 +365,11 @@ typedef struct {
   CICP2GEOMETRY_CHANNEL_GEOMETRY inputChannelGeo[FDK_FORMAT_CONVERTER_MAX_INPUT_CHANNELS];
 
   UINT numInputChannels[FDK_FORMAT_CONVERTER_MAX_INPUT_CHANNEL_GROUPS];
-  UINT inputChannelGroupOffsets[FDK_FORMAT_CONVERTER_MAX_INPUT_CHANNEL_GROUPS];
   UINT numInputChannelGroups;
 
-  UINT dmxMatrixValid;
   UINT amountOfAddedDmxMatricesAndEqualizers;
   /* EqualizerConfig variables. Parsed and decoded bitstream EQs. */
   FIXP_EQ_H* eqGains[FDK_FORMAT_CONVERTER_MAX_INPUT_CHANNELS];
-  INT eqGains_e[FDK_FORMAT_CONVERTER_MAX_INPUT_CHANNELS];
 
   UINT numTotalInputChannels;
 
@@ -408,7 +386,6 @@ typedef struct {
   FDK_FORMAT_CONVERTER_INPUT_FORMAT fcInputFormat;
   FDK_FORMAT_CONVERTER_OUTPUT_FORMAT fcOutputFormat;
   INT aes;
-  INT pas;
   UINT numOutputChannels;
   CICP2GEOMETRY_CHANNEL_GEOMETRY outChannelGeo[FDK_FORMAT_CONVERTER_MAX_OUTPUT_CHANNELS];
   INT cicpLayoutIndex;
@@ -432,20 +409,11 @@ typedef struct {
   UINT stftFrameSize;
   UINT stftLength;
   UINT stftNumErbBands;
-  UINT* stftErbFreqIdx;
-
-  AFC_FORMAT_CONVERTER_CHANNEL_ID* channelVec;
-  int* unknownChannelVec;
-
-  int inputChannelIds[FDK_FORMAT_CONVERTER_MAX_INPUT_CHANNELS];
-  int downmixMatrixChannelIds[FDK_FORMAT_CONVERTER_MAX_INPUT_CHANNELS];
-
   AFC_FORMAT_CONVERTER_CHANNEL_ID format_in_listOfChannels[FDK_FORMAT_CONVERTER_MAX_INPUT_CHANNELS];
   int format_in_listOfChannels_nchan;
   AFC_FORMAT_CONVERTER_CHANNEL_ID
   format_out_listOfChannels[FDK_FORMAT_CONVERTER_MAX_OUTPUT_CHANNELS];
   int format_out_listOfChannels_nchan;
-  int openSuccess;
 
   FIXP_DBL GVH[13][6];
   INT GVH_e[13][6];
@@ -455,8 +423,6 @@ typedef struct {
   UINT is4GVH_StftErb[58];
   INT topIn[13];
   UINT midOut[6];
-  INT elv;
-  INT D2;
 
   UINT erb_is4GVH_L;
   UINT erb_is4GVH_H;

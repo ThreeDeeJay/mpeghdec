@@ -170,13 +170,6 @@ enum {
    << 2) /*!< Cross-fade at config change is demanded by pCtrlCFGChangeStruct->forceCrossfade */
 
 typedef struct {
-  /* Usac Extension Elements */
-  USAC_EXT_ELEMENT_TYPE usacExtElementType[(3)];
-  UINT usacExtElementDefaultLength[(3)];
-  UCHAR usacExtElementPayloadFrag[(3)];
-} CUsacCoreExtensions;
-
-typedef struct {
   EarconConfig earconConfig;
   EarconInfo earconInfo;
   UCHAR First_Frame;
@@ -278,12 +271,8 @@ struct AAC_DECODER_INSTANCE {
   CConcealParams concealCommonData;
   CConcealmentMethod concealMethodUser;
 
-  CUsacCoreExtensions
-      usacCoreExt; /*!< Data and handles to extend USAC FD/LPD core decoder (SBR, MPS, ...) */
   INT numUsacElements[TPDEC_MAX_TRACKS];
-  UCHAR usacStereoConfigIndex[(3 * ((28) * 2) + (((28) * 2)) / 2 + 4 * (1) + 1)];
   const CSUsacConfig* pUsacConfig[TPDEC_MAX_TRACKS];
-  INT nbDiv; /*!< number of frame divisions in LPD-domain */
 
   INT aacChannelsPrev; /*!< The amount of AAC core channels of the last successful decode call. */
   AUDIO_CHANNEL_TYPE channelTypePrev[(
@@ -321,11 +310,11 @@ struct AAC_DECODER_INSTANCE {
   INT targetLayout_config; /*!< Applied Target layout index which can be either equal targetLayout
                               or referenceLayout (if targetLayout is 0). */
   IIS_FORMATCONVERTER_HANDLE pFormatConverter[TPDEC_MAX_TRACKS]; /*!< Format converter instances. */
-  FIXP_SGL downmixMatrix[TP_MPEGH_MAX_SIGNAL_GROUPS][FDK_FORMAT_CONVERTER_MAX_INPUT_CHANNELS *
-                                                     FDK_FORMAT_CONVERTER_MAX_OUTPUT_CHANNELS];
   INT downmixId;
-  eqConfigStruct eqConfig[TP_MPEGH_MAX_SIGNAL_GROUPS];
 
+  IGF_PRIVATE_DATA_COMMON
+  igf_private_data_common[2]; /*!< IGF scratch memory shared between elements but requires two
+                                 instances in case of CPE */
   CMctPtr pMCTdec[TP_MPEGH_MAX_SIGNAL_GROUPS];
 
   UCHAR flushStatus;     /*!< Indicates flush status: on|off */

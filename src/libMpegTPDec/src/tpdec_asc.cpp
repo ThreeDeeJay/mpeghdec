@@ -200,9 +200,7 @@ static TRANSPORTDEC_ERROR extElementConfig(CSUsacExtElementConfig* extElement,
       if (extElement->extConfig.oam.lowDelayMetadataCoding != 1) {
         return TRANSPORTDEC_UNSUPPORTED_FORMAT; /* only low delay supported */
       }
-      extElement->extConfig.oam.hasCoreLength = FDKreadBit(hBs);
-      if (!extElement->extConfig.oam
-               .hasCoreLength) /* does not have the frame length of the corecoder */
+      if (!FDKreadBit(hBs)) /* does not have the frame length of the corecoder (!hasCoreLength) */
       {
         extElement->extConfig.oam.OAMframeLength =
             FDKreadBits(hBs, 6) + 1; /*framelength = blocksize/64 */
@@ -219,20 +217,21 @@ static TRANSPORTDEC_ERROR extElementConfig(CSUsacExtElementConfig* extElement,
       if (extElement->extConfig.oam.OAMframeLength > coreFrameLength) {
         return TRANSPORTDEC_UNSUPPORTED_FORMAT;
       }
-      extElement->extConfig.oam.hasScreenRelativeObjects = FDKreadBit(hBs);
-      if (extElement->extConfig.oam.hasScreenRelativeObjects) {
-        extElement->extConfig.oam.isScreenRelativeObject = 0;
-        for (int i = 0; i < numSignalsInGroup; i++) {
-          extElement->extConfig.oam.isScreenRelativeObject |= FDKreadBit(hBs) << (31 - i);
-        }
+      if (FDKreadBit(hBs)) /* hasScreenRelativeObjects */
+      {
+        /* isScreenRelativeObject = */ (void)FDKreadBits(hBs, numSignalsInGroup);
       }
       extElement->extConfig.oam.hasDynamicObjectPriority = FDKreadBit(hBs);
       extElement->extConfig.oam.hasUniformSpread = FDKreadBit(hBs);
+
       break;
     case ID_EXT_ELE_MCT:
       /* MCTConfig() */
-      for (int chan = 0; chan < numSignalsInGroup; chan++) {
-        extElement->extConfig.mct.mctChanMask[chan] = FDKreadBit(hBs);
+      if (numSignalsInGroup > 0) {
+        extElement->extConfig.mct.mctChanMask = FDKreadBits(hBs, numSignalsInGroup)
+                                                << ((ULONG)32 - numSignalsInGroup);
+      } else {
+        extElement->extConfig.mct.mctChanMask = 0;
       }
       break;
     case ID_EXT_ELE_HOA: {
@@ -262,12 +261,15 @@ static TRANSPORTDEC_ERROR extElementConfig(CSUsacExtElementConfig* extElement,
           extElement->extConfig.prodMetadata.bsReferenceDistance = 57;
         }
 
-        for (gp = 0; gp < numObjectGroups; gp++) {
-          extElement->extConfig.prodMetadata.hasObjectDistance[gp] = FDKreadBit(hBs);
+        if (numObjectGroups > 0) {
+          extElement->extConfig.prodMetadata.hasObjectDistance =
+              (ULONG)FDKreadBits(hBs, numObjectGroups) << ((ULONG)32 - numObjectGroups);
+        } else {
+          extElement->extConfig.prodMetadata.hasObjectDistance = 0;
         }
 
         for (gp = 0; gp < numChannelGroups; gp++) {
-          extElement->extConfig.prodMetadata.directHeadphone[gp] = FDKreadBit(hBs);
+          /* directHeadphone[gp] = */ (void)FDKreadBit(hBs);
         }
       }
       break;
@@ -461,9 +463,8 @@ static TRANSPORTDEC_ERROR UsacMpegHDecoderConfig_Parse(CSAudioSpecificConfig* as
   TRANSPORTDEC_ERROR ErrorStatus = TRANSPORTDEC_OK;
   CSUsacConfig* usc = &asc->m_sc.m_usacConfig;
   int i, numberOfElements;
-  int channelElementIdx = 0; /* index for elements which contain audio channels (sce, cpe, lfe) */
-  int grp = 0;               /* index of current signal group */
-  int cntSignals = 0;        /* count number of signals according to one group */
+  int grp = 0;        /* index of current signal group */
+  int cntSignals = 0; /* count number of signals according to one group */
   int nbits;
   int mpeghMCTElement = -1;
   USAC_EXT_ELEMENT_TYPE lastExtElement =
@@ -499,8 +500,8 @@ static TRANSPORTDEC_ERROR UsacMpegHDecoderConfig_Parse(CSAudioSpecificConfig* as
             (asc->m_sc.m_usacConfig.bsNumSignalGroups > 1)) {
           cntSignals -= asc->m_sc.m_usacConfig.m_signalGroupType[grp].count;
           grp++;
-          if ((cntSignals > asc->m_sc.m_usacConfig.m_signalGroupType[grp].count) ||
-              (grp >= asc->m_sc.m_usacConfig.bsNumSignalGroups)) {
+          if ((grp >= asc->m_sc.m_usacConfig.bsNumSignalGroups) ||
+              (cntSignals > asc->m_sc.m_usacConfig.m_signalGroupType[grp].count)) {
             return TRANSPORTDEC_PARSE_ERROR;
           }
           mpeghMCTElement = -1;
@@ -534,7 +535,6 @@ static TRANSPORTDEC_ERROR UsacMpegHDecoderConfig_Parse(CSAudioSpecificConfig* as
           /* end of mpegh3daCoreConfig() */
         }
         usc->m_nUsacChannels += 1;
-        channelElementIdx++;
         break;
 
       case ID_USAC_CPE:
@@ -565,7 +565,6 @@ static TRANSPORTDEC_ERROR UsacMpegHDecoderConfig_Parse(CSAudioSpecificConfig* as
             usc->element[i].igfIndependentTiling = FDKreadBits(hBs, 1);
           }
         }
-        { usc->element[i].m_stereoConfigIndex = 0; }
         usc->m_nUsacChannels += 2;
 
         if (asc->m_aot == AOT_MPEGH3DA) {
@@ -595,7 +594,6 @@ static TRANSPORTDEC_ERROR UsacMpegHDecoderConfig_Parse(CSAudioSpecificConfig* as
             usc->element[i].lpdStereoIndex = FDKreadBit(hBs);
           }
         }
-        channelElementIdx++;
         break;
 
       case ID_USAC_LFE:
@@ -603,8 +601,8 @@ static TRANSPORTDEC_ERROR UsacMpegHDecoderConfig_Parse(CSAudioSpecificConfig* as
          * valid. */
         if (mpeghMCTElement != -1) {
           if ((cntSignals > TP_MAX_CHANNELS_PER_SIGNAL_GROUP) ||
-              (usc->element[mpeghMCTElement]
-                   .extElement.extConfig.mct.mctChanMask[cntSignals - 1])) {
+              (usc->element[mpeghMCTElement].extElement.extConfig.mct.mctChanMask &
+               ((ULONG)1 << (31 - (cntSignals - 1))))) {
             return ErrorStatus = TRANSPORTDEC_PARSE_ERROR;
           }
         }
@@ -612,7 +610,6 @@ static TRANSPORTDEC_ERROR UsacMpegHDecoderConfig_Parse(CSAudioSpecificConfig* as
         usc->element[i].enhancedNoiseFilling = 0;
         usc->element[i].m_noiseFilling = 0;
         usc->m_nUsacChannels += 1;
-        channelElementIdx++;
         break;
 
       case ID_USAC_EXT:

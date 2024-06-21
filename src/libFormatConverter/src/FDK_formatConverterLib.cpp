@@ -161,16 +161,15 @@ INT IIS_FormatConverter_Create(IIS_FORMATCONVERTER_HANDLE* self, IIS_FORMATCONVE
   if (mode == IIS_FORMATCONVERTER_MODE_ACTIVE_FREQ_DOMAIN_STFT ||
       mode == IIS_FORMATCONVERTER_MODE_CUSTOM_FREQ_DOMAIN_STFT) {
     _p->stftNumErbBands = STFT_ERB_BANDS;
-    _p->stftFrameSize = 256;
-    _p->stftLength = _p->stftFrameSize * 2;
+    _p->stftFrameSize = STFT_FRAME_SIZE;
+    _p->stftLength = STFT_LENGTH;
     _p->fcNumFreqBands = _p->stftLength / 2 + 1;
     _p->fcCenterFrequencies = f_bands_nrm_stft_256_erb_58;
-    _p->stftErbFreqIdx = erb_freq_idx_256_58;
   }
   FDKmemcpy(_p->GVH, GVH, 13 * 6 * sizeof(FIXP_DBL));
-  FDKmemcpy(_p->GVH_e, GVH_e, 13 * 6 * sizeof(INT));
   FDKmemcpy(_p->GVL, GVL, 13 * 6 * sizeof(FIXP_DBL));
-  FDKmemcpy(_p->GVL_e, GVL_e, 13 * 6 * sizeof(INT));
+  FDKmemclear(_p->GVH_e, sizeof(_p->GVH_e));
+  FDKmemclear(_p->GVL_e, sizeof(_p->GVH_e));
 
   _p->frameSize = frameSize;
 
@@ -185,8 +184,6 @@ INT IIS_FormatConverter_Create(IIS_FORMATCONVERTER_HANDLE* self, IIS_FORMATCONVE
   _p->numTotalInputChannels = 0;
   _p->numOutputChannels = numOutChannels;
   _p->samplingRate = sampleRate;
-  _p->channelVec = NULL;
-  _p->unknownChannelVec = NULL;
 
   _p->STFT_headroom_prescaling = 0;
 
@@ -198,7 +195,6 @@ INT IIS_FormatConverter_Create(IIS_FORMATCONVERTER_HANDLE* self, IIS_FORMATCONVE
   _p->immersiveDownmixFlag = 0;
 
   _p->cicpLayoutIndex = -1;
-  _p->dmxMatrixValid = 1;
   _p->amountOfAddedDmxMatricesAndEqualizers = 0;
 
   FDK_ASSERT((mode == IIS_FORMATCONVERTER_MODE_PASSIVE_TIME_DOMAIN) ||
@@ -245,8 +241,6 @@ INT IIS_FormatConverter_Config_AddInputSetup(IIS_FORMATCONVERTER_HANDLE self,
   _p->numTotalInputChannels += numChannels;
 
   _p->numInputChannels[_p->numInputChannelGroups] = numChannels;
-  _p->inputChannelGroupOffsets[_p->numInputChannelGroups] = channelOffset;
-
   _p->numInputChannelGroups++;
 
   return 0;
@@ -322,9 +316,7 @@ int IIS_FormatConverter_Open(IIS_FORMATCONVERTER_HANDLE self, INT* p_buffer, UIN
                                 MAX_NUM_DMX_RULES * 8))
     return -1;
 
-  _p->openSuccess = 0;
   _p->aes = self->aes;
-  _p->pas = self->pas;
 
   /* match known channels in channel config */
   err = formatConverterMatchChConfig2Channels(_p->inputChannelGeo, 0, _p->numTotalInputChannels,
@@ -342,6 +334,11 @@ int IIS_FormatConverter_Open(IIS_FORMATCONVERTER_HANDLE self, INT* p_buffer, UIN
 
   for (i = 0; i < _p->numInputChannelGroups; i++) {
     _p->numTotalInputChannels += _p->numInputChannels[i];
+  }
+
+  if (_p->numTotalInputChannels == 0) {
+    /* nothing to be done: avoid allocation of the full FormatConverter */
+    goto FC_OPEN_CLEANUP_AND_RETURN;
   }
 
   cicp2geometry_get_number_of_lfes(_p->outChannelGeo, self->numLocalSpeaker, &numLfes);
@@ -468,7 +465,6 @@ FC_OPEN_CLEANUP_AND_RETURN:
 
   if (err == 0) {
     err = _checkConfiguration(self);
-    if (err == 0) _p->openSuccess = 1;
     return err;
   } else {
     return err;
@@ -545,10 +541,13 @@ INT IIS_FormatConverter_Process(IIS_FORMATCONVERTER_HANDLE self, HANDLE_DRC_DECO
 
   _p = (IIS_FORMATCONVERTER_INTERNAL*)self->member;
 
-  activeDownmixer* h = (activeDownmixer*)_p->fcState->handleActiveDmxStft;
+  if (_p->numTotalInputChannels == 0) {
+    return 0;
+  }
 
   switch (_p->mode) {
     case IIS_FORMATCONVERTER_MODE_CUSTOM_FREQ_DOMAIN_STFT: {
+      activeDownmixer* h = (activeDownmixer*)_p->fcState->handleActiveDmxStft;
       FIXP_DBL* deinBuffer[FDK_FORMAT_CONVERTER_MAX_INPUT_CHANNELS];
       FIXP_DBL* deoutBuffer[FDK_FORMAT_CONVERTER_MAX_OUTPUT_CHANNELS];
 
@@ -627,8 +626,6 @@ int IIS_FormatConverter_Close(IIS_FORMATCONVERTER_HANDLE* self) {
     FDKfree(_p->outputBufferStft);
   }
   formatConverterClose(_p);
-
-  if (_p->channelVec) FDKfree(_p->channelVec);
 
   FDKfree(_p);
 
@@ -957,17 +954,21 @@ static INT _initSTFT(IIS_FORMATCONVERTER_INTERNAL* _p) {
     }
   }
 
-  /* Initialize prevInputBufferStft */
-  _p->prevInputBufferStft = (FIXP_DBL**)FDKcalloc((TFRA + 1), sizeof(FIXP_DBL*));
-  if (_p->prevInputBufferStft == NULL) {
-    return status = -1;
-  }
-  for (ch = 0; ch < (TFRA + 1); ch++) {
-    _p->prevInputBufferStft[ch] =
-        (FIXP_DBL*)FDKaalloc(_p->stftLength * sizeof(FIXP_DBL), ALIGNMENT_DEFAULT);
-    if (_p->prevInputBufferStft[ch] == NULL) {
-      status = -1;
+  if (_p->immersiveDownmixFlag) {
+    /* Initialize prevInputBufferStft */
+    _p->prevInputBufferStft = (FIXP_DBL**)FDKcalloc((TFRA + 1), sizeof(FIXP_DBL*));
+    if (_p->prevInputBufferStft == NULL) {
+      return status = -1;
     }
+    for (ch = 0; ch < (TFRA + 1); ch++) {
+      _p->prevInputBufferStft[ch] =
+          (FIXP_DBL*)FDKaalloc(_p->stftLength * sizeof(FIXP_DBL), ALIGNMENT_DEFAULT);
+      if (_p->prevInputBufferStft[ch] == NULL) {
+        status = -1;
+      }
+    }
+  } else {
+    _p->prevInputBufferStft = NULL;
   }
 
   for (ch = 0; ch < _p->numTotalInputChannels; ch++) {

@@ -202,11 +202,8 @@ typedef enum {
 } TP_ASC_EXTENSION_ID;
 
 struct OAMCONFIG {
+  USHORT OAMframeLength;
   UCHAR lowDelayMetadataCoding;
-  UCHAR hasCoreLength;
-  UINT OAMframeLength;
-  UCHAR hasScreenRelativeObjects;
-  INT isScreenRelativeObject; /* use Bit 0-30 */
   UCHAR hasDynamicObjectPriority;
   UCHAR hasUniformSpread;
   UCHAR numObjectSignals;
@@ -220,14 +217,13 @@ typedef struct {
   union {
     struct OAMCONFIG oam;
     struct {
+      ULONG hasObjectDistance; /* msb aligned bit field: one bit for each object group */
       UCHAR hasReferenceDistance;
       UCHAR bsReferenceDistance;
-      UCHAR hasObjectDistance[32];
-      UCHAR directHeadphone[32];
     } prodMetadata;
 
     struct {
-      UCHAR mctChanMask[TP_MAX_CHANNELS_PER_SIGNAL_GROUP];
+      ULONG mctChanMask; /* msb aligned bit field: one bit for each channel */
     } mct;
   } extConfig;
 } CSUsacExtElementConfig;
@@ -249,10 +245,6 @@ typedef struct {
   UCHAR igfNTiles;
   UCHAR shiftIndex1;
   UCHAR shiftChannel1;
-  UCHAR m_harmonicSBR;
-  UCHAR m_interTes;
-  UCHAR m_pvc;
-  UCHAR m_stereoConfigIndex;
   CSUsacExtElementConfig extElement;
 } CSUsacElementConfig;
 
@@ -311,8 +303,6 @@ typedef struct {
   UCHAR numAudioChannels;
   UCHAR m_usacConfigExtensionPresent;
   UCHAR elementLengthPresent;
-  UCHAR UsacConfig[TP_USAC_MAX_CONFIG_LEN];
-  USHORT UsacConfigBits;
 } CSUsacConfig;
 
 /**
@@ -378,18 +368,20 @@ typedef struct {
 } CCtrlCFGChange;
 
 #define ASI_MAX_LIMIT 28
+#define ASI_MAX_GROUP_PRESETS 16
+#define ASI_MAX_DESCRIPTION_LANGUAGES 8
 
 #define ASI_MAX_GROUPS ASI_MAX_LIMIT
 #define ASI_MAX_SWITCH_GROUPS (ASI_MAX_LIMIT / 2)
 #define ASI_MAX_TARGET_LOUDNESS_CONDITIONS (ASI_MAX_LIMIT / 2)
-#define ASI_MAX_GROUP_PRESETS ASI_MAX_LIMIT
 #define ASI_MAX_GROUP_MEMBERS ASI_MAX_LIMIT
 #define ASI_MAX_SWITCH_GROUP_MEMBERS ASI_MAX_LIMIT
-#define ASI_MAX_GROUP_PRESET_CONDITIONS ASI_MAX_LIMIT
+#define ASI_MAX_GROUP_PRESET_CONDITIONS 16
 #define ASI_MAX_COMPOSITE_PAIRS ASI_MAX_LIMIT
 #define ASI_MAX_PREF_DESCR_LANGUAGES 10
 #define ASI_MAX_DESCRIPTION_BLOCKS (ASI_MAX_GROUPS + ASI_MAX_SWITCH_GROUPS + ASI_MAX_GROUP_PRESETS)
-#define ASI_MAX_DESCRIPTION_LEN 257 /* max(mae_bsDescriptionDataLength) + 1 */
+#define ASI_MAX_DESCRIPTION_LEN 256 /* max(mae_bsDescriptionDataLength) + 1 */
+#define ASI_MAX_STORED_DESCRIPTION_LEN 64
 
 #define ASI_DIFF_DESCRIPTION 1
 #define ASI_DIFF_CONTENT 2
@@ -404,8 +396,15 @@ typedef struct {
 
 typedef struct {
   UCHAR present;
+#ifdef ASI_MAX_DESCRIPTION_LANGUAGES
+  SHORT numLanguages;
+  SHORT prefLangIdx;
+  char language[ASI_MAX_DESCRIPTION_LANGUAGES][3];
+  char data[ASI_MAX_DESCRIPTION_LANGUAGES][ASI_MAX_STORED_DESCRIPTION_LEN + 1];
+#else
   char language[3];
-  char data[ASI_MAX_DESCRIPTION_LEN];
+  char data[ASI_MAX_DESCRIPTION_LEN + 1];
+#endif
 } ASI_DESCRIPTION;
 
 typedef struct {
@@ -462,9 +461,6 @@ typedef struct {
   /* extension */
   UCHAR extPresent;
 
-  /* description */
-  ASI_DESCRIPTION description;
-
   /* content data */
   UCHAR contPresent;
   ASI_CONTENT_DATA contentData;
@@ -483,8 +479,6 @@ typedef struct {
 
   UCHAR defaultGroupID;
 
-  /* description */
-  ASI_DESCRIPTION description;
 } ASI_SWITCH_GROUP;
 
 typedef struct {
@@ -527,8 +521,6 @@ typedef struct {
   /* production screen size */
   ASI_PRODUCTION_SCREEN_SIZE_DATA productionScreenSize;
 
-  /* description */
-  ASI_DESCRIPTION description;
 } ASI_GROUP_PRESET;
 
 typedef struct {
@@ -557,6 +549,12 @@ typedef struct {
 } ASI_DRC_UI_INFO;
 
 typedef struct {
+  ASI_DESCRIPTION groups[ASI_MAX_GROUPS];
+  ASI_DESCRIPTION switchGroups[ASI_MAX_SWITCH_GROUPS];
+  ASI_DESCRIPTION groupPresets[ASI_MAX_GROUP_PRESETS];
+} ASI_DESCRIPTIONS;
+
+typedef struct {
   UCHAR isMainStream[16];
   UCHAR audioSceneInfoID;
 
@@ -568,6 +566,8 @@ typedef struct {
 
   UCHAR numGroupPresets;
   ASI_GROUP_PRESET groupPresets[ASI_MAX_GROUP_PRESETS];
+
+  ASI_DESCRIPTIONS* pDescriptions;
 
   UCHAR metaDataElementIDoffset[16];
   SHORT metaDataElementIDmaxAvail[16]; /* the maximum available metaDataElementID in a Main Stream

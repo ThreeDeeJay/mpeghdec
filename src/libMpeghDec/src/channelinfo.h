@@ -224,8 +224,6 @@ typedef struct {
   }
   specificTo;
 
-  IGF_PRIVATE_DATA_COMMON IGF_Common_channel_data;
-
 } CAacDecoderDynamicData;
 
 typedef shouldBeUnion {
@@ -238,15 +236,7 @@ CWorkBufferCore1;
 
 /* Common data referenced by all channels */
 typedef struct {
-  CAacDecoderDynamicData pAacDecoderDynamicData[2];
-
-  CJointStereoData jointStereoData; /* One for one element */
-
-  shouldBeUnion {
-    struct {
-    } aac;
-  }
-  overlay;
+  CJointStereoData* pJointStereoData; /* One for one element */
 
 } CAacDecoderCommonData;
 

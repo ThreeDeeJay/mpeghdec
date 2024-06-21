@@ -386,18 +386,11 @@ static INT aacDecoder_ParseDmxMatrixCallback(void* handle, HANDLE_FDK_BITSTREAM 
   const int downmixConfigType = usc->downmixConfigType;
   const CSSignalGroup* signalGroupType = usc->m_signalGroupType;
 
-  SpeakerInformation inputConfig[FDK_MPEGHAUDIO_DEC_MAX_OUTPUT_CHANNELS];
-  CICP2GEOMETRY_CHANNEL_GEOMETRY outputConfig_geo[FDK_MPEGHAUDIO_DEC_MAX_OUTPUT_CHANNELS];
-
-  INT numOutputCh = 0, numOutLfes = 0;
-  SpeakerInformation outputConfig[FDK_MPEGHAUDIO_DEC_MAX_OUTPUT_CHANNELS];
-
-  FDK_BITSTREAM bitbuf_init;
-  HANDLE_FDK_BITSTREAM bitbuf = &bitbuf_init;
-
-  C_AALLOC_SCRATCH_START(tempS, FDK_DOWNMIX_GROUPS_MATRIX_SET, 1);
-  FDKmemclear(tempS, sizeof(FDK_DOWNMIX_GROUPS_MATRIX_SET));
-  FDK_DOWNMIX_GROUPS_MATRIX_SET* groupsDownmixMatrixSet = (FDK_DOWNMIX_GROUPS_MATRIX_SET*)tempS;
+  /* borrow memory from pTimeData2: the data will be read by DecodeDownmixMatrix() during
+   * CAacDecoder_InitRenderer() */
+  FDK_DOWNMIX_GROUPS_MATRIX_SET* groupsDownmixMatrixSet =
+      (FDK_DOWNMIX_GROUPS_MATRIX_SET*)hAacDecoder->pTimeData2;
+  FDKmemclear(groupsDownmixMatrixSet, sizeof(FDK_DOWNMIX_GROUPS_MATRIX_SET));
 
   err = DownmixMatrixSet(hBs, groupsDownmixMatrixSet, targetLayout, downmixConfigType,
                          &(hAacDecoder->downmixId), hUniDrcDecoder);
@@ -407,49 +400,15 @@ static INT aacDecoder_ParseDmxMatrixCallback(void* handle, HANDLE_FDK_BITSTREAM 
     asi->activeDmxId = hAacDecoder->downmixId & 0xFF; /* Truncation is verified */
   }
 
-  /* Decode downmix matrix per signal group */
-
   if (err == 0) {
     for (INT i = 0; i < numSignalGroups; i++) {
       if (signalGroupType[i].type == 0) {
         UCHAR dmx_index = groupsDownmixMatrixSet->downmixMatrix[i];
         if (groupsDownmixMatrixSet->downmixMatrixSize[dmx_index] > 0) {
-          INT n = 0;
-          FIXP_SGL* downmixMatrix = hAacDecoder->downmixMatrix[i];
           FDK_ASSERT(usc->m_signalGroupType[i].bUseCustomDownmixMatrix == 0);
           usc->m_signalGroupType[i].bUseCustomDownmixMatrix =
               1;                                 /* downmixMatrix parsed for the signal group i. */
           matchingTransmittedDmxMatrixFound = 1; /* signal transmitted dmx matrix. */
-
-          FDKinitBitStream(bitbuf, groupsDownmixMatrixSet->downmixMatrixMemory[dmx_index],
-                           sizeof(groupsDownmixMatrixSet->downmixMatrixMemory[dmx_index]),
-                           groupsDownmixMatrixSet->downmixMatrixSize[dmx_index], BS_READER);
-
-          for (n = 0; n < (INT)signalGroupType[i].count; n++) {
-            inputConfig[n].azimuth = signalGroupType[i].speakers[n].Az;
-            inputConfig[n].elevation = signalGroupType[i].speakers[n].El;
-            inputConfig[n].isLFE = signalGroupType[i].speakers[n].Lfe;
-          }
-
-          err = cicp2geometry_get_geometry_from_cicp(targetLayout, outputConfig_geo, &numOutputCh,
-                                                     &numOutLfes);
-          if (err != 0) {
-            break;
-          }
-
-          for (n = 0; n < (numOutputCh + numOutLfes); n++) {
-            outputConfig[n].azimuth = outputConfig_geo[n].Az;
-            outputConfig[n].elevation = outputConfig_geo[n].El;
-            outputConfig[n].isLFE = outputConfig_geo[n].LFE;
-          }
-
-          err = DecodeDownmixMatrix(signalGroupType[i].Layout, signalGroupType[i].count,
-                                    inputConfig, targetLayout, (numOutputCh + numOutLfes),
-                                    outputConfig, bitbuf, downmixMatrix, &hAacDecoder->eqConfig[i],
-                                    hAacDecoder->workBufferCore2);
-          if (err != 0) {
-            break;
-          }
         }
       }
     }
@@ -470,8 +429,6 @@ static INT aacDecoder_ParseDmxMatrixCallback(void* handle, HANDLE_FDK_BITSTREAM 
       }
     }
   }
-
-  C_AALLOC_SCRATCH_END(tempS, FDK_DOWNMIX_GROUPS_MATRIX_SET, 1);
 
   if (err == 0)
     err = TRANSPORTDEC_OK;
@@ -564,8 +521,8 @@ static INT aacDecoder_EarconSetBSCallback(void* handle, HANDLE_FDK_BITSTREAM bs)
       return 0;
     }
     /*Sanity check for buffer fullness*/
-    if (((hAacDecoder->earconDecoder.AccumulatedFrameSize + frameSize * numPcmSignalsInFrame)) >=
-        EARCON_BUFFER_SIZE) {
+    if (((hAacDecoder->earconDecoder.AccumulatedFrameSize +
+          hAacDecoder->earconDecoder.BaseframeSize * numPcmSignalsInFrame)) >= EARCON_BUFFER_SIZE) {
       return 0;
     }
 
@@ -1063,7 +1020,7 @@ LINKSPEC_CPP HANDLE_AACDECODER aacDecoder_Open(TRANSPORT_TYPE transportFmt, UINT
   transportDec_RegisterEarconConfigCallBack(pIn, aacDecoder_EarconSetConfigCallback, (void*)aacDec);
   transportDec_RegisterEarconInfoCallBack(pIn, aacDecoder_EarconSetInfoCallback, (void*)aacDec);
 
-  if (UI_Manager_Create(&aacDec->hUiManager) != UI_MANAGER_OK) {
+  if (UI_Manager_Create(&aacDec->hUiManager, 0) != UI_MANAGER_OK) {
     err = -1;
     goto bail;
   }
@@ -1099,7 +1056,7 @@ bail:
   return aacDec;
 }
 
-LINKSPEC_CPP AAC_DECODER_ERROR aacDecoder_Fill(HANDLE_AACDECODER self, UCHAR* pBuffer[],
+LINKSPEC_CPP AAC_DECODER_ERROR aacDecoder_Fill(HANDLE_AACDECODER self, const UCHAR* const pBuffer[],
                                                const UINT bufferSize[], UINT* pBytesValid) {
   AAC_DECODER_ERROR errorStatus = AAC_DEC_OK;
 
@@ -2012,16 +1969,11 @@ bail:
 
   /* Update Statistics */
   aacDecoder_UpdateBitStreamCounters(&self->streamInfo, hBs, nBits, ErrorStatus);
-  /* if no samples left return AAC_DEC_INTERMEDIATE_OK */
-  if (ErrorStatus == AAC_DEC_OK && self->streamInfo.frameSize == 0) {
-    ErrorStatus = AAC_DEC_INTERMEDIATE_OK;
-  }
-  if (((self->streamInfo.numChannels <= 0) || (self->streamInfo.frameSize <= 0) ||
-       (self->streamInfo.sampleRate <= 0)) &&
-      IS_OUTPUT_VALID(ErrorStatus)) {
-    /* Ensure consistency of IS_OUTPUT_VALID() macro. */
-    ErrorStatus = AAC_DEC_UNKNOWN;
-  }
+
+  /* Ensure consistency of IS_OUTPUT_VALID() macro. */
+  FDK_ASSERT((((self->streamInfo.numChannels <= 0) || (self->streamInfo.sampleRate <= 0)) &&
+              IS_OUTPUT_VALID(ErrorStatus)) == 0);
+
   if (!(IS_OUTPUT_VALID(ErrorStatus) || (ErrorStatus == AAC_DEC_INTERMEDIATE_OK))) {
     self->streamInfo.mpeghAUSize = -1;
     self->streamInfo.frameSize = 0;

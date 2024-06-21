@@ -1015,128 +1015,128 @@ int __FDK_coreflags_LE;         /* signed less than or equal            */
 #define A64_ldrsh_Wt(dst1,       src)           " LDRSH " #dst1 ",            [" #src "]\n\t"
 #define A64_ldrsw_Xt(dst1,       src)           " LDRSH " #dst1 ",            [" #src "]\n\t"
 
-#define A64_str_Xt(  src1,       dst)           " STR   " #src1 ",       [" #dst "]\n\t"
-#define A64_str_Wt(  src1,       dst)           " STR   " #src1 ",       [" #dst "]\n\t"
-#define A64_str_Qt(  src1,       dst)           " STR   " #src1 ",       [" #dst "]\n\t"
-#define A64_str_Dt(  src1,       dst)           " STR   " #src1 ",       [" #dst "]\n\t"
-#define A64_str_St(  src1,       dst)           " STR   " #src1 ",       [" #dst "]\n\t"
-#define A64_str_Ht(  src1,       dst)           " STR   " #src1 ",       [" #dst "]\n\t"
-#define A64_str_Bt(  src1,       dst)           " STR   " #src1 ",       [" #dst "]\n\t"
-#define A64_stp_Xt(  src1, src2, dst)           " STP   " #src1 ", " #src2 ",  [" #dst "]\n\t"
-#define A64_stp_Wt(  src1, src2, dst)           " STP   " #src1 ", " #src2 ",  [" #dst "]\n\t"
-#define A64_stp_Qt(  src1, src2, dst)           " STP   " #src1 ", " #src2 ",  [" #dst "]\n\t"
-#define A64_stp_Dt(  src1, src2, dst)           " STP   " #src1 ", " #src2 ",  [" #dst "]\n\t"
-#define A64_stp_St(  src1, src2, dst)           " STP   " #src1 ", " #src2 ",  [" #dst "]\n\t"
+#define A64_str_Xt(  src1,       dst)           " STR   " #src1 ",            [" #dst "]\n\t"
+#define A64_str_Wt(  src1,       dst)           " STR   " #src1 ",            [" #dst "]\n\t"
+#define A64_str_Qt(  src1,       dst)           " STR   " #src1 ",            [" #dst "]\n\t"
+#define A64_str_Dt(  src1,       dst)           " STR   " #src1 ",            [" #dst "]\n\t"
+#define A64_str_St(  src1,       dst)           " STR   " #src1 ",            [" #dst "]\n\t"
+#define A64_str_Ht(  src1,       dst)           " STR   " #src1 ",            [" #dst "]\n\t"
+#define A64_str_Bt(  src1,       dst)           " STR   " #src1 ",            [" #dst "]\n\t"
+#define A64_stp_Xt(  src1, src2, dst)           " STP   " #src1 ", " #src2 ", [" #dst "]\n\t"
+#define A64_stp_Wt(  src1, src2, dst)           " STP   " #src1 ", " #src2 ", [" #dst "]\n\t"
+#define A64_stp_Qt(  src1, src2, dst)           " STP   " #src1 ", " #src2 ", [" #dst "]\n\t"
+#define A64_stp_Dt(  src1, src2, dst)           " STP   " #src1 ", " #src2 ", [" #dst "]\n\t"
+#define A64_stp_St(  src1, src2, dst)           " STP   " #src1 ", " #src2 ", [" #dst "]\n\t"
 #define A64_strb_Wt( src1,       dst)           " STRB  " #src1 ",       [" #dst "]\n\t"
 #define A64_strh_Wt( src1,       dst)           " STRH  " #src1 ",       [" #dst "]\n\t"
 
 /* load/store from/to the address in src/dst with immediate offset, no pointer modification */
 /* Example: LDR X0, [X1, #8]                                                                */
-#define A64_ldr_Xt_I(  dst1,       src, offset)   LDR   dst1,       [src, FDK_TEXT(HASHSIGN) offset]
-#define A64_ldr_Wt_I(  dst1,       src, offset)   LDR   dst1,       [src, FDK_TEXT(HASHSIGN) offset]
-#define A64_ldr_Qt_I(  dst1,       src, offset)   LDR   dst1,       [src, FDK_TEXT(HASHSIGN) offset]
-#define A64_ldr_Dt_I(  dst1,       src, offset)   LDR   dst1,       [src, FDK_TEXT(HASHSIGN) offset]
-#define A64_ldr_St_I(  dst1,       src, offset)   LDR   dst1,       [src, FDK_TEXT(HASHSIGN) offset]
-#define A64_ldr_Ht_I(  dst1,       src, offset)   LDR   dst1,       [src, FDK_TEXT(HASHSIGN) offset]
-#define A64_ldr_Bt_I(  dst1,       src, offset)   LDR   dst1,       [src, FDK_TEXT(HASHSIGN) offset]
-#define A64_ldp_Xt_I(  dst1, dst2, src, offset)   " LDP  " #dst1 ", " #dst2 ", [" #src ", # " #offset "]\n\t"
-#define A64_ldpsw_Xt_I(dst1, dst2, src, offset)   LDPSW dst1, dst2, [src, FDK_TEXT(HASHSIGN) offset]
-#define A64_ldp_Wt_I(  dst1, dst2, src, offset)   LDP   dst1, dst2, [src, FDK_TEXT(HASHSIGN) offset]
-#define A64_ldp_Qt_I(  dst1, dst2, src, offset)   LDP   dst1, dst2, [src, FDK_TEXT(HASHSIGN) offset]
-#define A64_ldp_Dt_I(  dst1, dst2, src, offset)   LDP   dst1, dst2, [src, FDK_TEXT(HASHSIGN) offset]
-#define A64_ldp_St_I(  dst1, dst2, src, offset)   LDP   dst1, dst2, [src, FDK_TEXT(HASHSIGN) offset]
-#define A64_ldrb_Wt_I( dst1,       src, offset)   LDRB  dst1,       [src, FDK_TEXT(HASHSIGN) offset]
-#define A64_ldrh_Wt_I( dst1,       src, offset)   LDRH  dst1,       [src, FDK_TEXT(HASHSIGN) offset]
-#define A64_ldrsb_Xt_I(dst1,       src, offset)   LDRSB dst1,       [src, FDK_TEXT(HASHSIGN) offset]
-#define A64_ldrsb_Wt_I(dst1,       src, offset)   LDRSB dst1,       [src, FDK_TEXT(HASHSIGN) offset]
-#define A64_ldrsh_Xt_I(dst1,       src, offset)   LDRSH dst1,       [src, FDK_TEXT(HASHSIGN) offset]
-#define A64_ldrsh_Wt_I(dst1,       src, offset)   LDRSH dst1,       [src, FDK_TEXT(HASHSIGN) offset]
-#define A64_ldrsw_Xt_I(dst1,       src, offset)   LDRSW dst1,       [src, FDK_TEXT(HASHSIGN) offset]
+#define A64_ldr_Xt_I(  dst1,       src, offset)    " LDR  " #dst1 ", [" #src ", # " #offset "]\n\t"
+#define A64_ldr_Wt_I(  dst1, src, offset, name)    " LDR  " #dst1 ", [" #src ", # " #offset "]\n\t"
+#define A64_ldr_Qt_I(  dst1,       src, offset)    " LDR  " #dst1 ", [" #src ", # " #offset "]\n\t"
+#define A64_ldr_Dt_I(  dst1,       src, offset)    " LDR  " #dst1 ", [" #src ", # " #offset "]\n\t"
+#define A64_ldr_St_I(  dst1,       src, offset)    " LDR  " #dst1 ", [" #src ", # " #offset "]\n\t"
+#define A64_ldr_Ht_I(  dst1,       src, offset)    " LDR  " #dst1 ", [" #src ", # " #offset "]\n\t"
+#define A64_ldr_Bt_I(  dst1,       src, offset)    " LDR  " #dst1 ", [" #src ", # " #offset "]\n\t"
+#define A64_ldp_Xt_I(  dst1, dst2, src, offset, name1, name2)   " LDP   " #dst1 ", " #dst2 ", [" #src ", # " #offset "]\n\t"
+#define A64_ldpsw_Xt_I(dst1, dst2, src, offset)   " LDPSW " #dst1 ", " #dst2 ", [" #src ", # " #offset "]\n\t"
+#define A64_ldp_Wt_I(  dst1, dst2, src, offset)   " LDP   " #dst1 ", " #dst2 ", [" #src ", # " #offset "]\n\t"
+#define A64_ldp_Qt_I(  dst1, dst2, src, offset)   " LDP   " #dst1 ", " #dst2 ", [" #src ", # " #offset "]\n\t"
+#define A64_ldp_Dt_I(  dst1, dst2, src, offset)   " LDP   " #dst1 ", " #dst2 ", [" #src ", # " #offset "]\n\t"
+#define A64_ldp_St_I(  dst1, dst2, src, offset)   " LDP   " #dst1 ", " #dst2 ", [" #src ", # " #offset "]\n\t"
+#define A64_ldrb_Wt_I( dst1,       src, offset)   " LDRB  " #dst1 ", [" #src ", # " #offset "]\n\t"
+#define A64_ldrh_Wt_I( dst1,       src, offset)   " LDRH  " #dst1 ", [" #src ", # " #offset "]\n\t"
+#define A64_ldrsb_Xt_I(dst1,       src, offset)   " LDRSB " #dst1 ", [" #src ", # " #offset "]\n\t"
+#define A64_ldrsb_Wt_I(dst1,       src, offset)   " LDRSB " #dst1 ", [" #src ", # " #offset "]\n\t"
+#define A64_ldrsh_Xt_I(dst1,       src, offset)   " LDRSH " #dst1 ", [" #src ", # " #offset "]\n\t"
+#define A64_ldrsh_Wt_I(dst1,       src, offset)   " LDRSH " #dst1 ", [" #src ", # " #offset "]\n\t"
+#define A64_ldrsw_Xt_I(dst1,       src, offset)   " LDRSW " #dst1 ", [" #src ", # " #offset "]\n\t"
 
-#define A64_str_Xt_I(  src1,       dst, offset)   STR   src1,       [dst, FDK_TEXT(HASHSIGN) offset]
-#define A64_str_Wt_I(  src1,       dst, offset)   STR   src1,       [dst, FDK_TEXT(HASHSIGN) offset]
-#define A64_str_Qt_I(  src1,       dst, offset)   STR   src1,       [dst, FDK_TEXT(HASHSIGN) offset]
-#define A64_str_Dt_I(  src1,       dst, offset)   STR   src1,       [dst, FDK_TEXT(HASHSIGN) offset]
-#define A64_str_St_I(  src1,       dst, offset)   STR   src1,       [dst, FDK_TEXT(HASHSIGN) offset]
-#define A64_str_Ht_I(  src1,       dst, offset)   STR   src1,       [dst, FDK_TEXT(HASHSIGN) offset]
-#define A64_str_Bt_I(  src1,       dst, offset)   STR   src1,       [dst, FDK_TEXT(HASHSIGN) offset]
-#define A64_stp_Xt_I(  src1, src2, dst, offset)   STP   src1, src2, [dst, FDK_TEXT(HASHSIGN) offset]
-#define A64_stp_Wt_I(  src1, src2, dst, offset)   STP   src1, src2, [dst, FDK_TEXT(HASHSIGN) offset]
-#define A64_stp_Qt_I(  src1, src2, dst, offset)   STP   src1, src2, [dst, FDK_TEXT(HASHSIGN) offset]
-#define A64_stp_Dt_I(  src1, src2, dst, offset)   STP   src1, src2, [dst, FDK_TEXT(HASHSIGN) offset]
-#define A64_stp_St_I(  src1, src2, dst, offset)   STP   src1, src2, [dst, FDK_TEXT(HASHSIGN) offset]
-#define A64_strb_Wt_I( src1,       dst, offset)   STRB  src1,       [dst, FDK_TEXT(HASHSIGN) offset]
-#define A64_strh_Wt_I( src1,       dst, offset)   STRH  src1,       [dst, FDK_TEXT(HASHSIGN) offset]
+#define A64_str_Xt_I(  src1,       dst, offset)   " STR  " #src1 ",            [" #dst ", # " #offset "]\n\t"
+#define A64_str_Wt_I(  src1, dst, offset, name)   " STR  " #src1 ",            [" #dst ", # " #offset "]\n\t"
+#define A64_str_Qt_I(  src1,       dst, offset)   " STR  " #src1 ",            [" #dst ", # " #offset "]\n\t"
+#define A64_str_Dt_I(  src1,       dst, offset)   " STR  " #src1 ",            [" #dst ", # " #offset "]\n\t"
+#define A64_str_St_I(  src1,       dst, offset)   " STR  " #src1 ",            [" #dst ", # " #offset "]\n\t"
+#define A64_str_Ht_I(  src1,       dst, offset)   " STR  " #src1 ",            [" #dst ", # " #offset "]\n\t"
+#define A64_str_Bt_I(  src1,       dst, offset)   " STR  " #src1 ",            [" #dst ", # " #offset "]\n\t"
+#define A64_stp_Xt_I(  src1, src2, dst, offset)   " STP  " #src1 ", " #src2 ", [" #dst ", # " #offset "]\n\t"
+#define A64_stp_Wt_I(  src1, src2, dst, offset)   " STP  " #src1 ", " #src2 ", [" #dst ", # " #offset "]\n\t"
+#define A64_stp_Qt_I(  src1, src2, dst, offset)   " STP  " #src1 ", " #src2 ", [" #dst ", # " #offset "]\n\t"
+#define A64_stp_Dt_I(  src1, src2, dst, offset)   " STP  " #src1 ", " #src2 ", [" #dst ", # " #offset "]\n\t"
+#define A64_stp_St_I(  src1, src2, dst, offset)   " STP  " #src1 ", " #src2 ", [" #dst ", # " #offset "]\n\t"
+#define A64_strb_Wt_I( src1,       dst, offset)   " STRB " #src1 ",            [" #dst ", # " #offset "]\n\t"
+#define A64_strh_Wt_I( src1,       dst, offset)   " STRH " #src1 ",            [" #dst ", # " #offset "]\n\t"
 
 /* load/store from/to the address in src/dst with register offset, no pointer modification */
 /* Example: LDR X0, [X1, X2]                                                               */
-#define A64_ldr_Xt_X(  dst1,       src, offset)   LDR   dst1,       [src, offset]
-#define A64_ldr_Wt_X(  dst1,       src, offset)   LDR   dst1,       [src, offset]
-#define A64_ldr_Qt_X(  dst1,       src, offset)   LDR   dst1,       [src, offset]
-#define A64_ldr_Dt_X(  dst1,       src, offset)   LDR   dst1,       [src, offset]
-#define A64_ldr_St_X(  dst1,       src, offset)   LDR   dst1,       [src, offset]
-#define A64_ldr_Ht_X(  dst1,       src, offset)   LDR   dst1,       [src, offset]
-#define A64_ldr_Bt_X(  dst1,       src, offset)   LDR   dst1,       [src, offset]
-#define A64_ldp_Xt_X(  dst1, dst2, src, offset)   LDP   dst1, dst2, [src, offset]
-#define A64_ldpsw_Xt_X(dst1, dst2, src, offset)   LDPSW dst1, dst2, [src, offset]
-#define A64_ldp_Wt_X(  dst1, dst2, src, offset)   LDP   dst1, dst2, [src, offset]
-#define A64_ldp_Qt_X(  dst1, dst2, src, offset)   LDP   dst1, dst2, [src, offset]
-#define A64_ldp_Dt_X(  dst1, dst2, src, offset)   LDP   dst1, dst2, [src, offset]
-#define A64_ldp_St_X(  dst1, dst2, src, offset)   LDP   dst1, dst2, [src, offset]
-#define A64_ldrb_Wt_X( dst1,       src, offset)   LDRB  dst1,       [src, offset]
-#define A64_ldrh_Wt_X( dst1,       src, offset)   LDRH  dst1,       [src, offset]
-#define A64_ldrsb_Xt_X(dst1,       src, offset)   LDRSB dst1,       [src, offset]
-#define A64_ldrsb_Wt_X(dst1,       src, offset)   LDRSB dst1,       [src, offset]
-#define A64_ldrsh_Xt_X(dst1,       src, offset)   LDRSH dst1,       [src, offset]
-#define A64_ldrsh_Wt_X(dst1,       src, offset)   LDRSH dst1,       [src, offset]
-#define A64_ldrsw_Xt_X(dst1,       src, offset)   LDRSW dst1,       [src, offset]
+#define A64_ldr_Xt_X(  dst1,       src, offset)   " LDR   " #dst1 ",            [" #src ", " #offset "]\n\t"
+#define A64_ldr_Wt_X(  dst1,       src, offset)   " LDR   " #dst1 ",            [" #src ", " #offset "]\n\t"
+#define A64_ldr_Qt_X(  dst1,       src, offset)   " LDR   " #dst1 ",            [" #src ", " #offset "]\n\t"
+#define A64_ldr_Dt_X(  dst1,       src, offset)   " LDR   " #dst1 ",            [" #src ", " #offset "]\n\t"
+#define A64_ldr_St_X(  dst1,       src, offset)   " LDR   " #dst1 ",            [" #src ", " #offset "]\n\t"
+#define A64_ldr_Ht_X(  dst1,       src, offset)   " LDR   " #dst1 ",            [" #src ", " #offset "]\n\t"
+#define A64_ldr_Bt_X(  dst1,       src, offset)   " LDR   " #dst1 ",            [" #src ", " #offset "]\n\t"
+#define A64_ldp_Xt_X(  dst1, dst2, src, offset)   " LDP   " #dst1 ", " #dst2 ", [" #src ", " #offset "]\n\t"
+#define A64_ldpsw_Xt_X(dst1, dst2, src, offset)   " LDPSW " #dst1 ", " #dst2 ", [" #src ", " #offset "]\n\t"
+#define A64_ldp_Wt_X(  dst1, dst2, src, offset)   " LDP   " #dst1 ", " #dst2 ", [" #src ", " #offset "]\n\t"
+#define A64_ldp_Qt_X(  dst1, dst2, src, offset)   " LDP   " #dst1 ", " #dst2 ", [" #src ", " #offset "]\n\t"
+#define A64_ldp_Dt_X(  dst1, dst2, src, offset)   " LDP   " #dst1 ", " #dst2 ", [" #src ", " #offset "]\n\t"
+#define A64_ldp_St_X(  dst1, dst2, src, offset)   " LDP   " #dst1 ", " #dst2 ", [" #src ", " #offset "]\n\t"
+#define A64_ldrb_Wt_X( dst1,       src, offset)   " LDRB  " #dst1 ",            [" #src ", " #offset "]\n\t"
+#define A64_ldrh_Wt_X( dst1,       src, offset)   " LDRH  " #dst1 ",            [" #src ", " #offset "]\n\t"
+#define A64_ldrsb_Xt_X(dst1,       src, offset)   " LDRSB " #dst1 ",            [" #src ", " #offset "]\n\t"
+#define A64_ldrsb_Wt_X(dst1,       src, offset)   " LDRSB " #dst1 ",            [" #src ", " #offset "]\n\t"
+#define A64_ldrsh_Xt_X(dst1,       src, offset)   " LDRSH " #dst1 ",            [" #src ", " #offset "]\n\t"
+#define A64_ldrsh_Wt_X(dst1,       src, offset)   " LDRSH " #dst1 ",            [" #src ", " #offset "]\n\t"
+#define A64_ldrsw_Xt_X(dst1,       src, offset)   " LDRSW " #dst1 ",            [" #src ", " #offset "]\n\t"
 
-#define A64_str_Xt_X(  src1,       dst, offset)   STR   src1,       [dst, offset]
-#define A64_str_Wt_X(  src1,       dst, offset)   STR   src1,       [dst, offset]
-#define A64_str_Qt_X(  src1,       dst, offset)   STR   src1,       [dst, offset]
-#define A64_str_Dt_X(  src1,       dst, offset)   STR   src1,       [dst, offset]
-#define A64_str_St_X(  src1,       dst, offset)   STR   src1,       [dst, offset]
-#define A64_str_Ht_X(  src1,       dst, offset)   STR   src1,       [dst, offset]
-#define A64_str_Bt_X(  src1,       dst, offset)   STR   src1,       [dst, offset]
-#define A64_stp_Xt_X(  src1, src2, dst, offset)   STP   src1, src2, [dst, offset]
-#define A64_stp_Wt_X(  src1, src2, dst, offset)   STP   src1, src2, [dst, offset]
-#define A64_stp_Qt_X(  src1, src2, dst, offset)   STP   src1, src2, [dst, offset]
-#define A64_stp_Dt_X(  src1, src2, dst, offset)   STP   src1, src2, [dst, offset]
-#define A64_stp_St_X(  src1, src2, dst, offset)   STP   src1, src2, [dst, offset]
-#define A64_strb_Wt_X( src1,       dst, offset)   STRB  src1,       [dst, offset]
-#define A64_strh_Wt_X( src1,       dst, offset)   STRH  src1,       [dst, offset]
+#define A64_str_Xt_X(  src1,       dst, offset)   " STR   " #src1 ",            [" #dst ", " #offset "]\n\t"
+#define A64_str_Wt_X(  src1,       dst, offset)   " STR   " #src1 ",            [" #dst ", " #offset "]\n\t"
+#define A64_str_Qt_X(  src1,       dst, offset)   " STR   " #src1 ",            [" #dst ", " #offset "]\n\t"
+#define A64_str_Dt_X(  src1,       dst, offset)   " STR   " #src1 ",            [" #dst ", " #offset "]\n\t"
+#define A64_str_St_X(  src1,       dst, offset)   " STR   " #src1 ",            [" #dst ", " #offset "]\n\t"
+#define A64_str_Ht_X(  src1,       dst, offset)   " STR   " #src1 ",            [" #dst ", " #offset "]\n\t"
+#define A64_str_Bt_X(  src1,       dst, offset)   " STR   " #src1 ",            [" #dst ", " #offset "]\n\t"
+#define A64_stp_Xt_X(  src1, src2, dst, offset)   " STP   " #src1 ", " #src2 ", [" #dst ", " #offset "]\n\t"
+#define A64_stp_Wt_X(  src1, src2, dst, offset)   " STP   " #src1 ", " #src2 ", [" #dst ", " #offset "]\n\t"
+#define A64_stp_Qt_X(  src1, src2, dst, offset)   " STP   " #src1 ", " #src2 ", [" #dst ", " #offset "]\n\t"
+#define A64_stp_Dt_X(  src1, src2, dst, offset)   " STP   " #src1 ", " #src2 ", [" #dst ", " #offset "]\n\t"
+#define A64_stp_St_X(  src1, src2, dst, offset)   " STP   " #src1 ", " #src2 ", [" #dst ", " #offset "]\n\t"
+#define A64_strb_Wt_X( src1,       dst, offset)   " STRB  " #src1 ",            [" #dst ", " #offset "]\n\t"
+#define A64_strh_Wt_X( src1,       dst, offset)   " STRH  " #src1 ",            [" #dst ", " #offset "]\n\t"
 
 /* load/store from/to the address in src/dst with left-shifted register offset, no pointer modification */
 /* Example: LDR X0, [X1, X2, LSL, #3]                                                                        */
-#define A64_ldr_Xt_X_LSL(  dst1,       src, offset, lsl)  "LDR " #dst1 ",           [" #src ", " #offset ", LSL # " #lsl"]\n\t"
-#define A64_ldr_Wt_X_LSL(  dst1,       src, offset, lsl)  "LDR " #dst1 ",           [" #src ", " #offset ", LSL # " #lsl"]\n\t"
-#define A64_ldr_Qt_X_LSL(  dst1,       src, offset, lsl)  "LDR " #dst1 ",           [" #src ", " #offset ", LSL # " #lsl"]\n\t"
-#define A64_ldr_Dt_X_LSL(  dst1,       src, offset, lsl)  "LDR " #dst1 ",           [" #src ", " #offset ", LSL # " #lsl"]\n\t"
-#define A64_ldr_St_X_LSL(  dst1,       src, offset, lsl)  "LDR " #dst1 ",           [" #src ", " #offset ", LSL # " #lsl"]\n\t"
-#define A64_ldr_Ht_X_LSL(  dst1,       src, offset, lsl)  "LDR " #dst1 ",           [" #src ", " #offset ", LSL # " #lsl"]\n\t"
-#define A64_ldr_Bt_X_LSL(  dst1,       src, offset, lsl)  "LDR " #dst1 ",           [" #src ", " #offset ", LSL # " #lsl"]\n\t"
-#define A64_ldp_Xt_X_LSL(  dst1, dst2, src, offset, lsl)  "LDP " #dst1 ", " #dst2 ",[" #src ", " #offset ", LSL # " #lsl"]\n\t"
-#define A64_ldpsw_Xt_X_LSL(dst1, dst2, src, offset, lsl)   LDPSW dst1, dst2, [src, offset, LSL, FDK_TEXT(HASHSIGN) lsl]
-#define A64_ldp_Wt_X_LSL(  dst1, dst2, src, offset, lsl)   LDP   dst1, dst2, [src, offset, LSL, FDK_TEXT(HASHSIGN) lsl]
-#define A64_ldp_Qt_X_LSL(  dst1, dst2, src, offset, lsl)   LDP   dst1, dst2, [src, offset, LSL, FDK_TEXT(HASHSIGN) lsl]
-#define A64_ldp_Dt_X_LSL(  dst1, dst2, src, offset, lsl)   LDP   dst1, dst2, [src, offset, LSL, FDK_TEXT(HASHSIGN) lsl]
-#define A64_ldp_St_X_LSL(  dst1, dst2, src, offset, lsl)   LDP   dst1, dst2, [src, offset, LSL, FDK_TEXT(HASHSIGN) lsl]
-#define A64_ldrb_Wt_X_LSL( dst1,       src, offset, lsl)   LDRB  dst1,       [src, offset, LSL, FDK_TEXT(HASHSIGN) lsl]
-#define A64_ldrh_Wt_X_LSL( dst1,       src, offset, lsl)   LDRH  dst1,       [src, offset, LSL, FDK_TEXT(HASHSIGN) lsl]
-#define A64_ldrsb_Xt_X_LSL(dst1,       src, offset, lsl)   LDRSB dst1,       [src, offset, LSL, FDK_TEXT(HASHSIGN) lsl]
-#define A64_ldrsb_Wt_X_LSL(dst1,       src, offset, lsl)   LDRSB dst1,       [src, offset, LSL, FDK_TEXT(HASHSIGN) lsl]
-#define A64_ldrsh_Xt_X_LSL(dst1,       src, offset, lsl)   LDRSH dst1,       [src, offset, LSL, FDK_TEXT(HASHSIGN) lsl]
-#define A64_ldrsh_Wt_X_LSL(dst1,       src, offset, lsl)   LDRSH dst1,       [src, offset, LSL, FDK_TEXT(HASHSIGN) lsl]
-#define A64_ldrsw_Xt_X_LSL(dst1,       src, offset, lsl)   LDRSW dst1,       [src, offset, LSL, FDK_TEXT(HASHSIGN) lsl]
+#define A64_ldr_Xt_X_LSL(  dst1,       src, offset, lsl)  "LDR   " #dst1 ",           [" #src ", " #offset ", LSL # " #lsl"]\n\t"
+#define A64_ldr_Wt_X_LSL(  dst1,       src, offset, lsl)  "LDR   " #dst1 ",           [" #src ", " #offset ", LSL # " #lsl"]\n\t"
+#define A64_ldr_Qt_X_LSL(  dst1,       src, offset, lsl)  "LDR   " #dst1 ",           [" #src ", " #offset ", LSL # " #lsl"]\n\t"
+#define A64_ldr_Dt_X_LSL(  dst1,       src, offset, lsl)  "LDR   " #dst1 ",           [" #src ", " #offset ", LSL # " #lsl"]\n\t"
+#define A64_ldr_St_X_LSL(  dst1,       src, offset, lsl)  "LDR   " #dst1 ",           [" #src ", " #offset ", LSL # " #lsl"]\n\t"
+#define A64_ldr_Ht_X_LSL(  dst1,       src, offset, lsl)  "LDR   " #dst1 ",           [" #src ", " #offset ", LSL # " #lsl"]\n\t"
+#define A64_ldr_Bt_X_LSL(  dst1,       src, offset, lsl)  "LDR   " #dst1 ",           [" #src ", " #offset ", LSL # " #lsl"]\n\t"
+#define A64_ldp_Xt_X_LSL(  dst1, dst2, src, offset, lsl)  "LDP   " #dst1 ", " #dst2 ",[" #src ", " #offset ", LSL # " #lsl"]\n\t"
+#define A64_ldpsw_Xt_X_LSL(dst1, dst2, src, offset, lsl)  "LDPSW " #dst1 ", " #dst2 ",[" #src ", " #offset ", LSL # " #lsl"]\n\t"
+#define A64_ldp_Wt_X_LSL(  dst1, dst2, src, offset, lsl)  "LDP   " #dst1 ", " #dst2 ",[" #src ", " #offset ", LSL # " #lsl"]\n\t"
+#define A64_ldp_Qt_X_LSL(  dst1, dst2, src, offset, lsl)  "LDP   " #dst1 ", " #dst2 ",[" #src ", " #offset ", LSL # " #lsl"]\n\t"
+#define A64_ldp_Dt_X_LSL(  dst1, dst2, src, offset, lsl)  "LDP   " #dst1 ", " #dst2 ",[" #src ", " #offset ", LSL # " #lsl"]\n\t"
+#define A64_ldp_St_X_LSL(  dst1, dst2, src, offset, lsl)  "LDP   " #dst1 ", " #dst2 ",[" #src ", " #offset ", LSL # " #lsl"]\n\t"
+#define A64_ldrb_Wt_X_LSL( dst1,       src, offset, lsl)  "LDRB  " #dst1 ",           [" #src ", " #offset ", LSL # " #lsl"]\n\t"
+#define A64_ldrh_Wt_X_LSL( dst1,       src, offset, lsl)  "LDRH  " #dst1 ",           [" #src ", " #offset ", LSL # " #lsl"]\n\t"
+#define A64_ldrsb_Xt_X_LSL(dst1,       src, offset, lsl)  "LDRSB " #dst1 ",           [" #src ", " #offset ", LSL # " #lsl"]\n\t"
+#define A64_ldrsb_Wt_X_LSL(dst1,       src, offset, lsl)  "LDRSB " #dst1 ",           [" #src ", " #offset ", LSL # " #lsl"]\n\t"
+#define A64_ldrsh_Xt_X_LSL(dst1,       src, offset, lsl)  "LDRSH " #dst1 ",           [" #src ", " #offset ", LSL # " #lsl"]\n\t"
+#define A64_ldrsh_Wt_X_LSL(dst1,       src, offset, lsl)  "LDRSH " #dst1 ",           [" #src ", " #offset ", LSL # " #lsl"]\n\t"
+#define A64_ldrsw_Xt_X_LSL(dst1,       src, offset, lsl)  "LDRSW " #dst1 ",           [" #src ", " #offset ", LSL # " #lsl"]\n\t"
 
-#define A64_ldr_Xt_X_LSR(  dst1,       src, offset, lsl)  "LDR " #dst1 ",           [" #src ", " #offset ", LSR " #lsl"]\n\t"
-#define A64_ldr_Wt_X_LSR(  dst1,       src, offset, lsl)  "LDR " #dst1 ",           [" #src ", " #offset ", LSR " #lsl"]\n\t"
-#define A64_ldr_Qt_X_LSR(  dst1,       src, offset, lsl)  "LDR " #dst1 ",           [" #src ", " #offset ", LSR " #lsl"]\n\t"
-#define A64_ldr_Dt_X_LSR(  dst1,       src, offset, lsl)  "LDR " #dst1 ",           [" #src ", " #offset ", LSR " #lsl"]\n\t"
-#define A64_ldr_St_X_LSR(  dst1,       src, offset, lsl)  "LDR " #dst1 ",           [" #src ", " #offset ", LSR " #lsl"]\n\t"
-#define A64_ldr_Ht_X_LSR(  dst1,       src, offset, lsl)  "LDR " #dst1 ",           [" #src ", " #offset ", LSR " #lsl"]\n\t"
-#define A64_ldr_Bt_X_LSR(  dst1,       src, offset, lsl)  "LDR " #dst1 ",           [" #src ", " #offset ", LSR " #lsl"]\n\t"
-#define A64_ldp_Xt_X_LSR(  dst1, dst2, src, offset, lsl)  "LDP " #dst1 ", " #dst2 ",[" #src ", " #offset ", LSR " #lsl"]\n\t"
+#define A64_ldr_Xt_X_LSR(  dst1,       src, offset, lsl)  "LDR   " #dst1 ",           [" #src ", " #offset ", LSR " #lsl"]\n\t"
+#define A64_ldr_Wt_X_LSR(  dst1,       src, offset, lsl)  "LDR   " #dst1 ",           [" #src ", " #offset ", LSR " #lsl"]\n\t"
+#define A64_ldr_Qt_X_LSR(  dst1,       src, offset, lsl)  "LDR   " #dst1 ",           [" #src ", " #offset ", LSR " #lsl"]\n\t"
+#define A64_ldr_Dt_X_LSR(  dst1,       src, offset, lsl)  "LDR   " #dst1 ",           [" #src ", " #offset ", LSR " #lsl"]\n\t"
+#define A64_ldr_St_X_LSR(  dst1,       src, offset, lsl)  "LDR   " #dst1 ",           [" #src ", " #offset ", LSR " #lsl"]\n\t"
+#define A64_ldr_Ht_X_LSR(  dst1,       src, offset, lsl)  "LDR   " #dst1 ",           [" #src ", " #offset ", LSR " #lsl"]\n\t"
+#define A64_ldr_Bt_X_LSR(  dst1,       src, offset, lsl)  "LDR   " #dst1 ",           [" #src ", " #offset ", LSR " #lsl"]\n\t"
+#define A64_ldp_Xt_X_LSR(  dst1, dst2, src, offset, lsl)  "LDP   " #dst1 ", " #dst2 ",[" #src ", " #offset ", LSR " #lsl"]\n\t"
 
 #define A64_str_Xt_X_LSL(  src1,       dst, offset, lsl)  "STR  " #src1 ",           [" #dst ", " #offset ", LSL " #lsl "]\n\t"
 #define A64_str_Wt_X_LSL(  src1,       dst, offset, lsl)  "STR  " #src1 ",           [" #dst ", " #offset ", LSL " #lsl "]\n\t"
@@ -1287,7 +1287,7 @@ int __FDK_coreflags_LE;         /* signed less than or equal            */
 /* Post-index: Load/store first from/to source/destination pointer, then update pointer with immediate offset */
 /* Example: LDR X0, [X1] #8 */
 #define A64_ldr_Xt_IA(  dst1,       src, offset)   LDR   dst1,       [src], FDK_TEXT(HASHSIGN) offset
-#define A64_ldr_Wt_IA(  dst1,       src, offset)   LDR   dst1,       [src], FDK_TEXT(HASHSIGN) offset
+#define A64_ldr_Wt_IA(dst1,src,offset)            "LDR   " #dst1 ",       [" #src "], # " #offset "\n\t"
 #define A64_ldr_Qt_IA(  dst1,       src, offset)   LDR   dst1,       [src], FDK_TEXT(HASHSIGN) offset
 #define A64_ldr_St_IA(  dst1,       src, offset)   LDR   dst1,       [src], FDK_TEXT(HASHSIGN) offset
 #define A64_ldr_Ht_IA(  dst1,       src, offset)   LDR   dst1,       [src], FDK_TEXT(HASHSIGN) offset
@@ -1516,7 +1516,12 @@ int __FDK_coreflags_LE;         /* signed less than or equal            */
 #define A64_strb_Wt_IA(src1,      dst, imm12)   __A64_strb_Wt_IA ((INT) src1,      (INT64 &) dst, imm12);
 #define A64_strb_Wt_IB(src1,      dst, imm12)   __A64_strb_Wt_IB ((INT) src1,      (INT64 &) dst, imm12);
 
-#define A64_ldr_Wt(dst, src )                             { __A64_ldr_Wt_IA((INT &) dst, (INT64 &) src, 0); }
+#define A64_ldr_Wt(dst, src )                     { __A64_ldr_Wt_IA((INT &) dst, (INT64 &) src, 0); }
+#define A64_ldr_Wt_I(dst, src, offset, name)      { dst = name; }  /* valid for stack operation */
+#define A64_ldr_Wt_IA(dst, src, imm12)            { __A64_ldr_Wt_IA((INT &) dst, (INT64 &) src, imm12); }
+
+#define A64_str_Wt_I(src, dst, imm12, name)    { extern INT64 SP;  if ((INT64) (&dst) == (INT64) &SP)  name = src;  /* valid for stack operation */  \
+                                                 else { INT64 __dst = (INT64)dst+((INT64)imm12); __A64_str_Wt_IA ((INT) src, (INT64 &) __dst, 0); }}
 
 #define A64_ldr_Xt_X_LSL(  dst1,       src, offset, lsl)  { INT64 __src = (INT64)src+((INT64)offset<<lsl);  __A64_ldr_Xt_IA(dst1,       __src, 0); }
 #define A64_ldp_Xt_X_LSL(  dst1, dst2, src, offset, lsl)  { INT64 __src = (INT64)src+((INT64)offset<<lsl);  __A64_ldp_Xt_IA(dst1, dst2, __src, 0); }
@@ -1540,8 +1545,8 @@ int __FDK_coreflags_LE;         /* signed less than or equal            */
 #define A64_popp(     dst1, dst2)               __A64_ldp_Xt_IA ((INT64 &) dst1, (INT64 &) dst2, (INT64 &) SP,  16);
 #define A64_popD(     dst1, dst2)               __A64_ldp_Xt_IA ((INT64 &) dst1, (INT64 &) dst2, (INT64 &) SP,  16);
 
-#define A64_ldp_Xt_I( dst1, dst2, src, imm12)   __A64_ldp_Xt_I  (dst1, dst2, src, imm12);
-#define A64_ldp_Wt_I( dst1, dst2, src, imm12)   __A64_ldp_Wt_I  (dst1, dst2, src, imm12);
+#define A64_ldp_Xt_I( dst1, dst2, src, imm12, name1, name2) { dst1 = name1; dst2 = name2; } /*  __A64_ldp_Xt_I  (dst1, dst2, src, imm12, name1, name2); */
+#define A64_ldp_Wt_I( dst1, dst2, src, imm12, name1, name2) { dst1 = name1; dst2 = name2; } /*  __A64_ldp_Wt_I  (dst1, dst2, src, imm12, name1, name2); */
 
 #define A64_ld1x1(      width, size, dst1,                   src)       __A64_ld1x1_IA((INT) width, (INT) size, (INT64 &) dst1,                                                 (INT64 &) src, (INT64) 0);
 #define A64_ld1x2(      width, size, dst1, dst2,             src)       __A64_ld1x2_IA((INT) width, (INT) size, (INT64 &) dst1, (INT64 &) dst2,                                 (INT64 &) src, (INT64) 0);
@@ -1557,6 +1562,16 @@ int __FDK_coreflags_LE;         /* signed less than or equal            */
 #define A64_ld2x2_IA(   width, size, dst1, dst2,             src, imm)  __A64_ld2x2_IA((INT) width, (INT) size, (INT64 &) dst1, (INT64 &) dst2,                                 (INT64 &) src, (INT64) imm);
 #define A64_ld3x3_IA(   width, size, dst1, dst2, dst3,       src, imm)  __A64_ld3x3_IA((INT) width, (INT) size, (INT64 &) dst1, (INT64 &) dst2, (INT64 &) dst3,                 (INT64 &) src, (INT64) imm);
 #define A64_ld4x4_IA(   width, size, dst1, dst2, dst3, dst4, src, imm)  __A64_ld4x4_IA((INT) width, (INT) size, (INT64 &) dst1, (INT64 &) dst2, (INT64 &) dst3, (INT64 &) dst4, (INT64 &) src, (INT64) imm);
+
+#define A64_ld1x1_PU(   width, size, dst1,                   src, upd)  __A64_ld1x1_PU((INT) width, (INT) size, (INT64 &) dst1,                                                 (INT64 &) src, (INT64) upd);
+#define A64_ld1x2_PU(   width, size, dst1, dst2,             src, upd)  __A64_ld1x2_PU((INT) width, (INT) size, (INT64 &) dst1, (INT64 &) dst2,                                 (INT64 &) src, (INT64) upd);
+#define A64_ld1x3_PU(   width, size, dst1, dst2, dst3,       src, upd)  __A64_ld1x3_PU((INT) width, (INT) size, (INT64 &) dst1, (INT64 &) dst2, (INT64 &) dst3,                 (INT64 &) src, (INT64) upd);
+#define A64_ld1x4_PU(   width, size, dst1, dst2, dst3, dst4, src, upd)  __A64_ld1x4_PU((INT) width, (INT) size, (INT64 &) dst1, (INT64 &) dst2, (INT64 &) dst3, (INT64 &) dst4, (INT64 &) src, (INT64) upd);
+#define A64_ld2x2_PU(   width, size, dst1, dst2,             src, upd)  __A64_ld2x2_PU((INT) width, (INT) size, (INT64 &) dst1, (INT64 &) dst2,                                 (INT64 &) src, (INT64) upd);
+#define A64_ld3x3_PU(   width, size, dst1, dst2, dst3,       src, upd)  __A64_ld3x3_PU((INT) width, (INT) size, (INT64 &) dst1, (INT64 &) dst2, (INT64 &) dst3,                 (INT64 &) src, (INT64) upd);
+#define A64_ld4x4_PU(   width, size, dst1, dst2, dst3, dst4, src, upd)  __A64_ld4x4_PU((INT) width, (INT) size, (INT64 &) dst1, (INT64 &) dst2, (INT64 &) dst3, (INT64 &) dst4, (INT64 &) src, (INT64) upd);
+
+
 
 #define A64_ld1rx1(     width, size, dst1,                   src)       __A64_ld1rx1_IA((INT) width, (INT) size, (INT64 &) dst1,                                                 (INT64 &) src, (INT64) 0);
 #define A64_ld1rx2(     width, size, dst1, dst2,             src)       __A64_ld1rx2_IA((INT) width, (INT) size, (INT64 &) dst1, (INT64 &) dst2,                                 (INT64 &) src, (INT64) 0);
@@ -1599,6 +1614,14 @@ int __FDK_coreflags_LE;         /* signed less than or equal            */
 #define A64_st2x2_IA(   width, size, src1, src2,             dst, imm)  __A64_st2x2_IA((INT) width, (INT) size, (INT64 &) src1, (INT64 &) src2,                                    (INT64 &) dst, (INT64) imm);
 #define A64_st3x3_IA(   width, size, src1, src2, src3,       dst, imm)  __A64_st3x3_IA((INT) width, (INT) size, (INT64 &) src1, (INT64 &) src2, (INT64 &) src3,                    (INT64 &) dst, (INT64) imm);
 #define A64_st4x4_IA(   width, size, src1, src2, src3, src4, dst, imm)  __A64_st4x4_IA((INT) width, (INT) size, (INT64 &) src1, (INT64 &) src2, (INT64 &) src3, (INT64 &) src4,    (INT64 &) dst, (INT64) imm);
+
+#define A64_st1x1_PU(   width, size, src1,                   dst, upd)  __A64_st1x1_PU((INT) width, (INT) size, (INT64 &) src1,                                                    (INT64 &) dst, (INT64) upd);
+#define A64_st1x2_PU(   width, size, src1, src2,             dst, upd)  __A64_st1x2_PU((INT) width, (INT) size, (INT64 &) src1, (INT64 &) src2,                                    (INT64 &) dst, (INT64) upd);
+#define A64_st1x3_PU(   width, size, src1, src2, src3,       dst, upd)  __A64_st1x3_PU((INT) width, (INT) size, (INT64 &) src1, (INT64 &) src2, (INT64 &) src3,                    (INT64 &) dst, (INT64) upd);
+#define A64_st1x4_PU(   width, size, src1, src2, src3, src4, dst, upd)  __A64_st1x4_PU((INT) width, (INT) size, (INT64 &) src1, (INT64 &) src2, (INT64 &) src3, (INT64 &) src4,    (INT64 &) dst, (INT64) upd);
+#define A64_st2x2_PU(   width, size, src1, src2,             dst, upd)  __A64_st2x2_PU((INT) width, (INT) size, (INT64 &) src1, (INT64 &) src2,                                    (INT64 &) dst, (INT64) upd);
+#define A64_st3x3_PU(   width, size, src1, src2, src3,       dst, upd)  __A64_st3x3_PU((INT) width, (INT) size, (INT64 &) src1, (INT64 &) src2, (INT64 &) src3,                    (INT64 &) dst, (INT64) upd);
+#define A64_st4x4_PU(   width, size, src1, src2, src3, src4, dst, upd)  __A64_st4x4_PU((INT) width, (INT) size, (INT64 &) src1, (INT64 &) src2, (INT64 &) src3, (INT64 &) src4,    (INT64 &) dst, (INT64) upd);
 
 /* Immediate offset = 0 mode */
 #define A64_st1_lane(   width, src1,                   lane, dst)       __A64_st1_lane_IA((INT) width, (INT64 &) src1,                                                 (INT) lane, (INT64 &) dst, (INT64) 0);
@@ -1672,7 +1695,7 @@ static void __A64_str_Wt_IA(INT src1, INT64 &dst, INT64 imm12)
 {
     INT *Dst = (INT *) dst;
     Dst[0] = src1;
-    dst += imm12;
+    dst = (INT64) (&Dst[imm12/sizeof(INT)]);
 }
 
 static void __A64_str_Wt_IB(INT src1, INT64 &dst, INT64 imm12)
@@ -1746,7 +1769,6 @@ static void __A64_ldr_Wt_IA(INT &dst, INT64 &src, INT64 imm12)
     src = (INT64) ((INT64) src + imm12);
 }
 
-
 static void __A64_ld1x1_IA(INT width, INT size, INT64 &dst1, INT64 &src, INT64 imm)
 {
     FDK_ASSERT((size == 128) || (size == 64));
@@ -1761,35 +1783,41 @@ static void __A64_ld1x1_IA(INT width, INT size, INT64 &dst1, INT64 &src, INT64 i
         INT64 *Dst1 = (INT64 *) dst1;
         for (i=0; i < num; i++)
           Dst1[i] = Src[i];
-      }
         break;
+      }
       case 32:
       {
         INT *Src  = (INT *) src;
         INT *Dst1 = (INT *) dst1;
         for (i=0; i < num; i++)
           Dst1[i] = Src[i];
-      }
         break;
+      }
       case 16:
       {
         SHORT *Src  = (SHORT *) src;
         SHORT *Dst1 = (SHORT *) dst1;
         for (i=0; i < num; i++)
           Dst1[i] = Src[i];
-      }
         break;
+      }
       case 8:
       {
         SCHAR *Src  = (SCHAR *) src;
         SCHAR *Dst1 = (SCHAR *) dst1;
         for (i=0; i < num; i++)
           Dst1[i] = Src[i];
-      }
         break;
+      }
     }
     src += imm;
 }
+static void __A64_ld1x1_PU(INT width, INT size, INT64& dst1, INT64& src, INT64 upd)
+{
+    __A64_ld1x1_IA(width, size, dst1, src, (INT64)0);
+    src += upd;
+}
+
 
 static void __A64_ld1x2_IA(INT width, INT size, INT64 &dst1, INT64 &dst2, INT64 &src, INT64 imm)
 {
@@ -1837,6 +1865,11 @@ static void __A64_ld1x2_IA(INT width, INT size, INT64 &dst1, INT64 &dst2, INT64 
         break;
     }
     src += imm;
+}
+static void __A64_ld1x2_PU(INT width, INT size, INT64& dst1, INT64& dst2, INT64& src, INT64 upd)
+{
+    __A64_ld1x2_IA(width, size, dst1, dst2, src, (INT64)0);
+    src += upd;
 }
 
 static void __A64_ld1x3_IA(INT width, INT size, INT64 &dst1, INT64 &dst2, INT64 &dst3, INT64 &src, INT64 imm)
@@ -1894,6 +1927,12 @@ static void __A64_ld1x3_IA(INT width, INT size, INT64 &dst1, INT64 &dst2, INT64 
     }
     src += imm;
 }
+static void __A64_ld1x3_PU(INT width, INT size, INT64& dst1, INT64& dst2, INT64& dst3, INT64& src, INT64 upd)
+{
+    __A64_ld1x3_IA(width, size, dst1, dst2, dst3, src, (INT64)0);
+    src += upd;
+}
+
 
 static void __A64_ld1x4_IA(INT width, INT size, INT64 &dst1, INT64 &dst2, INT64 &dst3, INT64 &dst4, INT64 &src, INT64 imm)
 {
@@ -1958,6 +1997,12 @@ static void __A64_ld1x4_IA(INT width, INT size, INT64 &dst1, INT64 &dst2, INT64 
     }
     src += imm;
 }
+static void __A64_ld1x4_PU(INT width, INT size, INT64& dst1, INT64& dst2, INT64& dst3, INT64& dst4, INT64& src, INT64 upd)
+{
+    __A64_ld1x4_IA(width, size, dst1, dst2, dst3, dst4, src, (INT64)0);
+    src += upd;
+}
+
 
 static void __A64_ld2x2_IA(INT width, INT size, INT64 &dst1, INT64 &dst2, INT64 &src, INT64 imm)
 {
@@ -2005,6 +2050,11 @@ static void __A64_ld2x2_IA(INT width, INT size, INT64 &dst1, INT64 &dst2, INT64 
         break;
     }
     src += imm;
+}
+static void __A64_ld2x2_PU(INT width, INT size, INT64& dst1, INT64& dst2, INT64& src, INT64 upd)
+{
+    __A64_ld2x2_IA(width, size, dst1, dst2, src, (INT64)0);
+    src += upd;
 }
 
 static void __A64_ld3x3_IA(INT width, INT size, INT64 &dst1, INT64 &dst2, INT64 &dst3, INT64 &src, INT64 imm)
@@ -2059,6 +2109,11 @@ static void __A64_ld3x3_IA(INT width, INT size, INT64 &dst1, INT64 &dst2, INT64 
         break;
     }
     src += imm;
+}
+static void __A64_ld3x3_PU(INT width, INT size, INT64& dst1, INT64& dst2, INT64& dst3, INT64& src, INT64 upd)
+{
+    __A64_ld3x3_IA(width, size, dst1, dst2, dst3, src, (INT64)0);
+    src += upd;
 }
 
 static void __A64_ld4x4_IA(INT width, INT size, INT64 &dst1, INT64 &dst2, INT64 &dst3, INT64 &dst4, INT64 &src, INT64 imm)
@@ -2120,6 +2175,14 @@ static void __A64_ld4x4_IA(INT width, INT size, INT64 &dst1, INT64 &dst2, INT64 
     }
     src += imm;
 }
+
+static void __A64_ld4x4_PU(INT width, INT size, INT64& dst1, INT64& dst2, INT64& dst3, INT64& dst4, INT64& src, INT64 upd)
+{
+    __A64_ld4x4_IA(width, size, dst1, dst2, dst3, dst4, src, (INT64)0);
+    src += upd;
+}
+
+
 
 static void __A64_ld1rx1_IA(INT width, INT size, INT64 &dst1, INT64 &src, INT64 imm)
 {
@@ -2577,9 +2640,12 @@ static void __A64_st1x4_IA(INT width, INT size, INT64 &src1, INT64 &src2, INT64 
         INT *Src2 = (INT *) src2;
         INT *Src3 = (INT *) src3;
         INT *Src4 = (INT *) src4;
-        for (i=0; i < num; i++)   Dst[i] = Src1[i];  Dst += num;
-        for (i=0; i < num; i++)   Dst[i] = Src2[i];  Dst += num;
-        for (i=0; i < num; i++)   Dst[i] = Src3[i];  Dst += num;
+        for (i=0; i < num; i++)   Dst[i] = Src1[i];
+        Dst += num;
+        for (i=0; i < num; i++)   Dst[i] = Src2[i];
+        Dst += num;
+        for (i=0; i < num; i++)   Dst[i] = Src3[i];
+        Dst += num;
         for (i=0; i < num; i++)   Dst[i] = Src4[i];
       }
       break;
@@ -2590,9 +2656,12 @@ static void __A64_st1x4_IA(INT width, INT size, INT64 &src1, INT64 &src2, INT64 
         SHORT *Src2 = (SHORT *) src2;
         SHORT *Src3 = (SHORT *) src3;
         SHORT *Src4 = (SHORT *) src4;
-        for (i=0; i < num; i++)   Dst[i] = Src1[i];  Dst += num;
-        for (i=0; i < num; i++)   Dst[i] = Src2[i];  Dst += num;
-        for (i=0; i < num; i++)   Dst[i] = Src3[i];  Dst += num;
+        for (i=0; i < num; i++)   Dst[i] = Src1[i];
+        Dst += num;
+        for (i=0; i < num; i++)   Dst[i] = Src2[i];
+        Dst += num;
+        for (i=0; i < num; i++)   Dst[i] = Src3[i];
+        Dst += num;
         for (i=0; i < num; i++)   Dst[i] = Src4[i];
       }
       break;
@@ -2603,9 +2672,12 @@ static void __A64_st1x4_IA(INT width, INT size, INT64 &src1, INT64 &src2, INT64 
         SCHAR *Src2 = (SCHAR *) src2;
         SCHAR *Src3 = (SCHAR *) src3;
         SCHAR *Src4 = (SCHAR *) src4;
-        for (i=0; i < num; i++)   Dst[i] = Src1[i];  Dst += num;
-        for (i=0; i < num; i++)   Dst[i] = Src2[i];  Dst += num;
-        for (i=0; i < num; i++)   Dst[i] = Src3[i];  Dst += num;
+        for (i=0; i < num; i++)   Dst[i] = Src1[i];
+        Dst += num;
+        for (i=0; i < num; i++)   Dst[i] = Src2[i];
+        Dst += num;
+        for (i=0; i < num; i++)   Dst[i] = Src3[i];
+        Dst += num;
         for (i=0; i < num; i++)   Dst[i] = Src4[i];
       }
       break;
@@ -2627,8 +2699,10 @@ static void __A64_st1x3_IA(INT width, INT size, INT64 &src1, INT64 &src2, INT64 
         INT *Src1 = (INT *) src1;
         INT *Src2 = (INT *) src2;
         INT *Src3 = (INT *) src3;
-        for (i=0; i < num; i++)   Dst[i] = Src1[i];  Dst += num;
-        for (i=0; i < num; i++)   Dst[i] = Src2[i];  Dst += num;
+        for (i=0; i < num; i++)   Dst[i] = Src1[i];
+        Dst += num;
+        for (i=0; i < num; i++)   Dst[i] = Src2[i];
+        Dst += num;
         for (i=0; i < num; i++)   Dst[i] = Src3[i];
       }
         break;
@@ -2638,8 +2712,10 @@ static void __A64_st1x3_IA(INT width, INT size, INT64 &src1, INT64 &src2, INT64 
         SHORT *Src1 = (SHORT *) src1;
         SHORT *Src2 = (SHORT *) src2;
         SHORT *Src3 = (SHORT *) src3;
-        for (i=0; i < num; i++)   Dst[i] = Src1[i];  Dst += num;
-        for (i=0; i < num; i++)   Dst[i] = Src2[i];  Dst += num;
+        for (i=0; i < num; i++)   Dst[i] = Src1[i];
+        Dst += num;
+        for (i=0; i < num; i++)   Dst[i] = Src2[i];
+        Dst += num;
         for (i=0; i < num; i++)   Dst[i] = Src3[i];
       }
         break;
@@ -2649,14 +2725,22 @@ static void __A64_st1x3_IA(INT width, INT size, INT64 &src1, INT64 &src2, INT64 
         SCHAR *Src1 = (SCHAR *) src1;
         SCHAR *Src2 = (SCHAR *) src2;
         SCHAR *Src3 = (SCHAR *) src3;
-        for (i=0; i < num; i++)   Dst[i] = Src1[i];  Dst += num;
-        for (i=0; i < num; i++)   Dst[i] = Src2[i];  Dst += num;
+        for (i=0; i < num; i++)   Dst[i] = Src1[i];
+        Dst += num;
+        for (i=0; i < num; i++)   Dst[i] = Src2[i];
+        Dst += num;
         for (i=0; i < num; i++)   Dst[i] = Src3[i];
       }
         break;
     }
     dst += imm;
 }
+static void __A64_st1x3_PU(INT width, INT size, INT64& src1, INT64& src2, INT64& src3, INT64& dst, INT64 upd)
+{
+    __A64_st1x3_IA(width, size, src1, src2, src3, dst, (INT64) 0);
+    dst += upd;
+}
+
 
 static void __A64_st1x1_IA(INT width, INT size, INT64 &src, INT64 &dst, INT64 imm)
 {
@@ -2699,6 +2783,12 @@ static void __A64_st1x1_IA(INT width, INT size, INT64 &src, INT64 &dst, INT64 im
     }
     dst += imm;
 }
+static void __A64_st1x1_PU(INT width, INT size, INT64& src, INT64& dst, INT64 upd)
+{
+    __A64_st1x1_IA(width, size, src, dst, 0);
+    dst += upd;
+}
+
 
 static void __A64_st1x2_IA(INT width, INT size, INT64 &src1, INT64 &src2, INT64 &dst, INT64 imm)
 {
@@ -2759,6 +2849,11 @@ static void __A64_st1x2_IA(INT width, INT size, INT64 &src1, INT64 &src2, INT64 
     }
     dst += imm;
 }
+static void __A64_st1x2_PU(INT width, INT size, INT64& src1, INT64& src2, INT64& dst, INT64 upd)
+{
+    __A64_st1x2_IA(width, size, src1, src2, dst, 0);
+    dst += upd;
+}
 
 
 static void __A64_st2x2_IA(INT width, INT size, INT64 &src1, INT64 &src2, INT64 &dst, INT64 imm)
@@ -2808,6 +2903,12 @@ static void __A64_st2x2_IA(INT width, INT size, INT64 &src1, INT64 &src2, INT64 
     }
     dst += imm;
 }
+static void __A64_st2x2_PU(INT width, INT size, INT64& src1, INT64& src2, INT64& dst, INT64 upd)
+{
+    __A64_st2x2_IA(width, size, src1, src2, dst, 0);
+    dst += upd;
+}
+
 
 static void __A64_st3x3_IA(INT width, INT size, INT64 &src1, INT64 &src2, INT64 &src3, INT64 &dst, INT64 imm)
 {
@@ -2862,6 +2963,12 @@ static void __A64_st3x3_IA(INT width, INT size, INT64 &src1, INT64 &src2, INT64 
     }
     dst += imm;
 }
+static void __A64_st3x3_PU(INT width, INT size, INT64& src1, INT64& src2, INT64& src3, INT64& dst, INT64 upd)
+{
+    __A64_st3x3_IA(width, size, src1, src2, src3, dst, 0);
+    dst += upd;
+}
+
 
 static void __A64_st4x4_IA(INT width, INT size, INT64 &src1, INT64 &src2, INT64 &src3, INT64 &src4, INT64 &dst, INT64 imm)
 {
@@ -2922,8 +3029,11 @@ static void __A64_st4x4_IA(INT width, INT size, INT64 &src1, INT64 &src2, INT64 
     }
     dst += imm;
 }
-
-
+static void __A64_st4x4_PU(INT width, INT size, INT64& src1, INT64& src2, INT64& src3, INT64& src4, INT64& dst, INT64 upd)
+{
+    __A64_st4x4_IA(width, size, src1, src2, src3, src4, dst, 0);
+    dst += upd;
+}
 
 static void __A64_st1_lane_IA(INT width, INT64 &src1, INT lane, INT64 &dst, INT64 imm)
 {
@@ -3288,7 +3398,9 @@ void A64_check_move_immediate(int size, int datatype, int sign, INT64 immediate)
 #define __A64_smov_Wt(dst, src, lane)             "SMOV  " #dst ", " #src " [ " #lane " ]\n\t"
 #define __A64_mov_Xt_to_lane(dst, lane, src)      "MOV   " #dst " [ " #lane " ], " #src "\n\t"
 #define __A64_mov_Wt_to_lane(dst, lane, src)      "MOV   " #dst " [ " #lane " ], " #src "\n\t"
-#define __A64_umov_Wt(dest, src, lane)            "UMOV  " #dest ", " #src "[ " #lane " ]\n\t"
+#define __A64_umov_Wt(dst, src, lane)             "UMOV  " #dst ", " #src "[ " #lane " ]\n\t"
+#define __A64_umov_Xt(dst, src, lane)             "UMOV  " #dst ", " #src "[ " #lane " ]\n\t"
+#define __A64_sxtw_Xt(Xd, Wn)                     "SXTW  " #Xd ", " #Wn "\n\t"
 
 #define A64_mvni_i16(size, dst, imm)                     __A64_mvni_i16(size, dst, imm)
 #define A64_mvni_i32_lsl(size, dst, imm, lsl)            __A64_mvni_i32_lsl(size, dst, imm, lsl)
@@ -3297,7 +3409,7 @@ void A64_check_move_immediate(int size, int datatype, int sign, INT64 immediate)
 #define A64_movi(    width, size, dst, imm)              __A64_movi(dst, imm)
 #define A64_movi_lsl(width, size, dst, imm, lsl)         __A64_movi_lsl(dst, imm, lsl)
 #define A64_movi_msl(width, size, dst, imm, msl)         __A64_movi_msl(dst, imm, msl)
-#define A64_fmov(           size, dst, imm)              __A64_fmov(dst, imm);
+#define A64_fmov(           size, dst, imm)              __A64_fmov(dst, imm)
 
 #define A64_mov(width, size, dst, src)                   __A64_mov(dst, src)
 
@@ -3310,6 +3422,8 @@ void A64_check_move_immediate(int size, int datatype, int sign, INT64 immediate)
 #define A64_mov_Wt_to_lane(width, size, dst, lane, src)  __A64_mov_Wt_to_lane(dst, lane, src)
 #define A64_mov_Xt_to_lane(width, size, dst, lane, src)  __A64_mov_Xt_to_lane(dst, lane, src)
 #define A64_umov_Wt(dst, src, lane)                      __A64_umov_Wt(dst, src, lane)
+#define A64_umov_Xt(width, size, dst, src, lane)         __A64_umov_Xt(dst, src, lane)
+#define A64_sxtw_Xt(dst, src)                            __A64_sxtw_Xt(dst, src)
 
 #else
 /* Visual Studio / Linux gcc */
@@ -3324,15 +3438,17 @@ void A64_check_move_immediate(int size, int datatype, int sign, INT64 immediate)
 
 #define A64_mov(width, size, dst, src)                   __A64_mov((INT) width, (INT) size, (INT64 &) dst, (INT64 &) src);
 
-#define A64_mov_Xt_imm(dst, imm)                         __A64_mov_Xt_imm(&dst, (INT64) imm);
+#define A64_mov_Xt_imm(dst, imm)                         { A64_check_move_immediate(64, 64, 1, imm); dst = imm; } /* __A64_mov_Xt_imm((INT64 &) dst, (INT64) imm); */
 #define A64_mov_Wt_imm(dst, imm)                         __A64_mov_Wt_imm((FIXP_DBL *) &dst, (INT64) imm);
 #define A64_mov_Xt(dst, src)                             __A64_mov_Xt((INT64 &) dst, (INT64 &) src);
 #define A64_smov_Wt(width, size, dst, src, lane)         __A64_smov_Wt((INT) width, (INT) size, (INT64 &) dst, (INT64 &) src, (INT) lane);
 #define A64_smov_Xt(width, size, dst, src, lane)         __A64_smov_Xt((INT) width, (INT) size, (INT64 &) dst, (INT64 &) src, (INT) lane);
-#define A64_mov_Wt(dst, src)                             __A64_mov_Wt((INT64 &) dst, (INT64 &) src);
+#define A64_mov_Wt(dst, src)                             __A64_mov_Wt((INT &) dst, (INT &) src);
 #define A64_mov_Wt_to_lane(width, size, dst, lane, src)  __A64_mov_Wt_to_lane((INT) width, (INT) size, (SCHAR *) dst, (INT) lane, (FIXP_DBL *) &src);
 #define A64_mov_Xt_to_lane(width, size, dst, lane, src)  __A64_mov_Xt_to_lane((INT) width, (INT) size, (INT64 &) dst, (INT) lane, (INT64 &) src);
-#define A64_umov_Wt(width, size, dst, src, lane)         __A64_umov_Wt((INT) width, (INT) size, (INT64 &) dst, (INT64 &) src, (INT) lane);
+#define A64_umov_Wt(dst, src, lane)                      __A64_umov_Wt((INT) 32, (INT) 128, (INT64 &) dst, (INT64 &) src, (INT) lane);
+#define A64_umov_Xt(width, size, dst, src, lane)         __A64_umov_Xt((INT) width, (INT) size, (INT64 &) dst, (INT64 &) src, (INT) lane);
+#define A64_sxtw_Xt(Xd, Wn)                              __A64_sxtw_Xt((INT64 &) Xd, (INT64 &) Wn);
 
 /* Move immediate to vector register, but not to any core registers */
 static inline void __A64_mvni_i16(int size, A64_H *dst, INT64 imm)
@@ -3374,15 +3490,41 @@ static inline void __A64_mvni_i32_msl(int size, A64_S *dst, INT64 imm, int msl)
 /* MOVI Vn.<T>, #uimm8  <T> is 8B or 16B */
 static inline void __A64_movi(INT width, INT size, INT64 &dst, UINT64 imm)
 {
-  FDK_ASSERT(width == 8);
-  FDK_ASSERT((size == 64) || (size == 128) );
+  FDK_ASSERT((width == 8) || (width == 16) || (width == 32));
+  FDK_ASSERT((size == 64) || (size == 128));
   FDK_ASSERT(imm <= (UINT64) 0xFF);
 
   INT i, num = size / width;
-  UCHAR *Dst = (UCHAR *) dst;
-  for (i = 0; i < num; i++)
+  switch (width)
   {
-    Dst[i] = (UCHAR) imm;
+    case 8:
+    {
+      UCHAR *Dst8 = (UCHAR *) dst;
+      for (i = 0; i < num; i++)
+      {
+        Dst8[i] = (UCHAR) imm;
+      }   
+      break;
+    }
+    case 16:
+    {
+        USHORT* Dst16 = (USHORT*)dst;
+        for (i = 0; i < num; i++)
+        {
+            Dst16[i] = (USHORT)imm;
+        }
+        break;
+    }
+
+    case 32:
+    {
+      INT * Dst32 = (INT*)dst;
+      for (i = 0; i < num; i++)
+      {
+        Dst32[i] = (INT)imm;
+      }
+      break;
+    }
   }
 }
 
@@ -3554,6 +3696,26 @@ static inline void __A64_mov_Xt_to_lane(INT width, INT size, INT64 &dst, INT lan
   Dst[lane] = val;
 }
 
+static inline void __A64_mov_Wt(INT & dst, INT & src)
+{
+    extern INT * __WZR;
+    if (&dst != __WZR)
+    {
+        if (&src != __WZR)
+        {
+            dst = src;
+        }
+        else
+        {
+            /* Reading WZR results in zero */
+            dst = (INT)0;
+        }
+    }
+    else
+    {
+        ;  /* Write to WZR are ignored */
+    }
+}
 
 
 static inline void __A64_mov_Wt_to_lane(INT width, INT size, SCHAR *dst, INT lane, FIXP_DBL *src)
@@ -3634,6 +3796,32 @@ static inline void __A64_umov_Wt(INT width, INT size, INT64 &dst, INT64 &src, IN
     dst = (INT64) val;
 }
 
+/* Move a 64-bit vector lane zero-extended to Xt register, if not WZR */
+static inline void __A64_umov_Xt(INT width, INT size, INT64& dst, INT64& src, INT lane)
+{
+  extern INT64* __XZR;
+
+  FDK_ASSERT(width == 64);
+  FDK_ASSERT(size == 128);
+  FDK_ASSERT(lane == 0 || lane == 1);
+
+  UINT64 val;
+  UINT64* Src = (UINT64*)src;
+  val = Src[lane];
+  if (&dst != __XZR)
+    dst = (INT64)val;
+}
+
+static inline void __A64_sxtw_Xt(INT64& dst, INT64& src)
+{
+  extern INT64* __XZR;
+  INT val = (INT) src;
+
+  if (&dst != __XZR)
+    dst = (INT64)val;
+
+}
+
 /* SMOV Wd, Vn.<T>[index]  T = B with lane = 0..15 or T = H with lane = 0..7 */
 static inline void __A64_smov_Wt(INT width, INT size, INT64 &dst, INT64 &src, INT lane)
 {
@@ -3702,7 +3890,7 @@ static inline void __A64_smov_Xt(INT width, INT size, INT64 &dst, INT64 &src, IN
   }
 }
 
-
+#endif
 #ifdef __ARM_AARCH64_NEON__
 /* reference: ARM Cortex-A Series Version 1.0 Programmer's Guide for ARMv8-A */
 /* chapter  5.7.4 vector arithmetic */
@@ -3732,8 +3920,120 @@ static void __A64_fmul(INT size, INT width, A64_SP dst, A64_SP src1, A64_SP src2
 }
 #endif
 
+#ifdef __ARM_AARCH64_NEON__
+/* reference: ARM Cortex-A Series Version 1.0 Programmer's Guide for ARMv8-A */
+/* chapter  5.7.4 vector arithmetic */
+/* ARMv8 GCC */
+#define __A64_fadd(dst, src1, src2)                 "FADD  " #dst ", " #src1 ", " #src2 "\n\t"
+#define A64_fadd(size, width, dst, src1, src2)       __A64_fadd(dst, src1, src2)
+#else
+#define A64_fadd(size, width, dst, src1, src2)       __A64_fadd((INT) size, (INT) width, dst, src1, src2);
+
+static void __A64_fadd(INT size, INT width, A64_SP dst, A64_SP src1, A64_SP src2)
+{
+    INT i, num = size/width;
+    switch (width)
+    {
+    case 32:
+        for (i=0; i < num; i++)
+            dst[i] = src1[i] + src2[i];
+        break;
+    case 64:
+        A64_DP Dst  = (A64_DP) dst;
+        A64_DP Src1 = (A64_DP) src1;
+        A64_DP Src2 = (A64_DP) src2;
+        for (i=0; i < num; i++)
+            Dst[i] = Src1[i] + Src2[i];
+        break;
+    }
+}
 #endif
 
+#ifdef __ARM_AARCH64_NEON__
+/* reference: ARM Cortex-A Series Version 1.0 Programmer's Guide for ARMv8-A */
+/* chapter  5.7.4 vector arithmetic */
+/* ARMv8 GCC */
+#define __A64_fmls(dst, src1, src2)                 "FMLS  " #dst ", " #src1 ", " #src2 "\n\t"
+#define A64_fmls(size, width, dst, src1, src2)       __A64_fmls(dst, src1, src2)
+#else
+#define A64_fmls(size, width, dst, src1, src2)       __A64_fmls((INT) size, (INT) width, dst, src1, src2);
+
+static void __A64_fmls(INT size, INT width, A64_SP dst, A64_SP src1, A64_SP src2)
+{
+    INT i, num = size/width;
+    switch (width)
+    {
+    case 32:
+        for (i=0; i < num; i++)
+            dst[i] -= src1[i] * src2[i];
+        break;
+    case 64:
+        A64_DP Dst  = (A64_DP) dst;
+        A64_DP Src1 = (A64_DP) src1;
+        A64_DP Src2 = (A64_DP) src2;
+        for (i=0; i < num; i++)
+            Dst[i] -= Src1[i] * Src2[i];
+        break;
+    }
+}
+#endif
+
+#ifdef __ARM_AARCH64_NEON__
+/* reference: ARM Cortex-A Series Version 1.0 Programmer's Guide for ARMv8-A */
+/* chapter  5.7.4 vector arithmetic */
+/* ARMv8 GCC */
+#define __A64_fmla(dst, src1, src2)                 "FMLA  " #dst ", " #src1 ", " #src2 "\n\t"
+#define A64_fmla(size, width, dst, src1, src2)       __A64_fmls(dst, src1, src2)
+#else
+#define A64_fmla(size, width, dst, src1, src2)       __A64_fmla((INT) size, (INT) width, dst, src1, src2);
+
+static void __A64_fmla(INT size, INT width, A64_SP dst, A64_SP src1, A64_SP src2)
+{
+    INT i, num = size/width;
+    switch (width)
+    {
+    case 32:
+        for (i=0; i < num; i++)
+            dst[i] += src1[i] * src2[i];
+        break;
+    case 64:
+        A64_DP Dst  = (A64_DP) dst;
+        A64_DP Src1 = (A64_DP) src1;
+        A64_DP Src2 = (A64_DP) src2;
+        for (i=0; i < num; i++)
+            Dst[i] += Src1[i] * Src2[i];
+        break;
+    }
+}
+#endif
+#ifdef __ARM_AARCH64_NEON__
+/* reference: ARM Cortex-A Series Version 1.0 Programmer's Guide for ARMv8-A */
+/* chapter  5.7.4 vector arithmetic */
+/* ARMv8 GCC */
+#define __A64_fsub(dst, src1, src2)                 "FSUB  " #dst ", " #src1 ", " #src2 "\n\t"
+#define A64_fsub(size, width, dst, src1, src2)       __A64_fsub(dst, src1, src2)
+#else
+#define A64_fsub(size, width, dst, src1, src2)       __A64_fsub((INT) size, (INT) width, dst, src1, src2);
+
+static void __A64_fsub(INT size, INT width, A64_SP dst, A64_SP src1, A64_SP src2)
+{
+    INT i, num = size/width;
+    switch (width)
+    {
+    case 32:
+        for (i=0; i < num; i++)
+            dst[i] = src1[i] - src2[i];
+        break;
+    case 64:
+        A64_DP Dst  = (A64_DP) dst;
+        A64_DP Src1 = (A64_DP) src1;
+        A64_DP Src2 = (A64_DP) src2;
+        for (i=0; i < num; i++)
+            Dst[i] = Src1[i] - Src2[i];
+        break;
+    }
+}
+#endif
 
 /*#################################################################################*/
 /*
@@ -4755,9 +5055,12 @@ static inline void __FDK_vpmin_s16(INT size, A64_H *dst, A64_H *src1, A64_H *src
 
 #ifdef __ARM_AARCH64_NEON__
 #define __A64_smax(dst, src1, src2)               "SMAX " #dst ", " #src1 ", " #src2 " \n\t"
+#define __A64_smin(dst, src1, src2)               "SMIN " #dst ", " #src1 ", " #src2 " \n\t"
 #define A64_smax(width, size, dst, src1, src2)    __A64_smax(dst, src1, src2)
+#define A64_smin(width, size, dst, src1, src2)    __A64_smin(dst, src1, src2)
 #else
 #define A64_smax(width, size, dst, src1, src2)    __A64_smax((INT) width, (INT) size, (INT64 &)dst, (INT64 &)src1, (INT64 &)src2);
+#define A64_smin(width, size, dst, src1, src2)    __A64_smin((INT) width, (INT) size, (INT64 &)dst, (INT64 &)src1, (INT64 &)src2);
 
 static inline void __A64_smax(INT width, INT size, INT64& dst, INT64& src1, INT64& src2)
 {
@@ -4805,58 +5108,55 @@ static inline void __A64_smax(INT width, INT size, INT64& dst, INT64& src1, INT6
     break;
   }
 }
+
+static inline void __A64_smin(INT width, INT size, INT64& dst, INT64& src1, INT64& src2)
+{
+  FDK_ASSERT((size == 128) || (size == 64));
+  FDK_ASSERT((width == 64) || (width == 32) || (width == 16) || (width == 8));
+  INT i, num = size / width;
+
+  switch (width)
+  {
+    case 64:
+    {
+      INT64* Src1 = (INT64*)src1;
+      INT64* Src2 = (INT64*)src2;
+      INT64* Dst = (INT64*)dst;
+      for (i = 0; i < num; i++)
+        Dst[i] = FDKmin(Src1[i], Src2[i]);
+        }
+    break;
+    case 32:
+    {
+      INT* Src1 = (INT*)src1;
+      INT* Src2 = (INT*)src2;
+      INT* Dst = (INT*)dst;
+      for (i = 0; i < num; i++)
+        Dst[i] = fMin(Src1[i], Src2[i]);
+    }
+    break;
+    case 16:
+    {
+      SHORT* Src1 = (SHORT*)src1;
+      SHORT* Src2 = (SHORT*)src2;
+      SHORT* Dst = (SHORT*)dst;
+      for (i = 0; i < num; i++)
+        Dst[i] = fMin(Src1[i], Src2[i]);
+    }
+    break;
+    case 8:
+    {
+      SCHAR* Src1 = (SCHAR*)src1;
+      SCHAR* Src2 = (SCHAR*)src2;
+      SCHAR* Dst = (SCHAR*)dst;
+      for (i = 0; i < num; i++)
+        Dst[i] = fMin(Src1[i], Src2[i]);
+    }
+    break;
+  }
+}
 #endif /* __ARM_AARCH64_NEON__ */
 
-
-#ifdef __ARM_AARCH64_NEON__
-#define FDK_vadd_s64_q(dst, src1, src2)   "VADD.I64 " #dst ", " #src1 ", " #src2 " \n\t"
-#define FDK_vadd_s64_d(dst, src1, src2)   "VADD.I64 " #dst ", " #src1 ", " #src2 " \n\t"
-#define FDK_vadd_s32_q(dst, src1, src2)   "VADD.I32 " #dst ", " #src1 ", " #src2 " \n\t"
-#define FDK_vadd_s32_d(dst, src1, src2)   "VADD.I32 " #dst ", " #src1 ", " #src2 " \n\t"
-#else
-#define FDK_vadd_s64_q(dst, src1, src2)   __FDK_vadd_s64_q(dst, src1, src2);
-#define FDK_vadd_s64_d(dst, src1, src2)   __FDK_vadd_s64_d(dst, src1, src2);
-#define FDK_vadd_s32_q(dst, src1, src2)   __FDK_vadd_s32_q(dst, src1, src2);
-#define FDK_vadd_s32_d(dst, src1, src2)   __FDK_vadd_s32_d(dst, src1, src2);
-
-static inline void __FDK_vadd_s64_q(A64_V dst, A64_V src1, A64_V src2)
-{
-  INT64 *Dst  = (INT64 *) dst;
-  INT64 *Src1 = (INT64 *) src1;
-  INT64 *Src2 = (INT64 *) src2;
-  Dst[0] = Src1[0] + Src2[0];
-  Dst[1] = Src1[1] + Src2[1];
-}
-static inline void __FDK_vadd_s64_d(A64_X dst, A64_X src1, A64_X src2)
-{
-  INT64 *Dst  = (INT64 *) dst;
-  INT64 *Src1 = (INT64 *) src1;
-  INT64 *Src2 = (INT64 *) src2;
-  Dst[0] = Src1[0] + Src2[0];
-}
-static inline void __FDK_vadd_s32_q(A64_V dst, A64_V src1, A64_V src2)
-{
-  A64_S *Dst  = (A64_S *) dst;
-  A64_S *Src1 = (A64_S *) src1;
-  A64_S *Src2 = (A64_S *) src2;
-  for (int i = 0; i < 4; i++)
-  {
-    FDK_check_s32_overflow((INT64) Src1[i] + (INT64) Src2[i]);
-    Dst[i] = Src1[i] + Src2[i];
-  }
-}
-static inline void __FDK_vadd_s32_d(A64_X dst, A64_X src1, A64_X src2)
-{
-  A64_S *Dst  = (A64_S*) dst;
-  A64_S *Src1 = (A64_S*) src1;
-  A64_S *Src2 = (A64_S*) src2;
-  for (int i = 0; i < 2; i++)
-  {
-    FDK_check_s32_overflow((INT64) Src1[i] + (INT64) Src2[i]);
-    Dst[i] = Src1[i] + Src2[i];
-  }
-}
-#endif //__ARM_AARCH64_NEON__
 
 #ifdef __ARM_AARCH64_NEON__
 #define FDK_vsub_s32_q(dst, src1, src2)   "VSUB.I32 " #dst ", " #src1 ", " #src2 " \n\t"
@@ -5334,7 +5634,7 @@ static inline void __A64_sminv(INT width, INT size, SCHAR* dst, INT64& src)
             SHORT* Dst = (SHORT*)dst;
             SHORT val = (FIXP_SGL) 0x8000;
             for (i = 0; i < num; i++)
-                val = fMin(val, Src[i];
+                val = fMin(val, Src[i]);
             Dst[0] = val;
         }
         break;
@@ -5344,7 +5644,7 @@ static inline void __A64_sminv(INT width, INT size, SCHAR* dst, INT64& src)
             SCHAR* Dst = (SCHAR*)dst;
             SCHAR val = (SCHAR) 0x80;
             for (i = 0; i < num; i++)
-            val = fMin(val, Src[i]);
+                val = fMin(val, Src[i]);
             Dst[0] = val;
         }
         break;
@@ -5912,7 +6212,7 @@ static inline void __A64_rev16(INT width, INT size, INT64 &dst, INT64 &src)
 
 #endif /*  __ARM_AARCH64_NEON__ */
 
-
+#ifndef __ARM_AARCH64_NEON__
 static inline FIXP_DBL ARMv8_sqdmulh(FIXP_DBL src1, FIXP_DBL src2)
 {
    /* Perform 32x32 MPY with doubling, high part result */
@@ -5934,7 +6234,7 @@ static inline FIXP_SGL ARMv8_sqdmulh(FIXP_SGL src1, FIXP_SGL src2)
    else
       return (FIXP_SGL) result;
 }
-
+#endif
 // Reference: ARMv8 Instruction Set Overview:
 //    5.7.4  Vector Arithmetic             Vd.<T>, Vn.<T>, Vm.<T>, where <T> is 4H, 8H, 2S, 4S
 //    5.7.5  Scalar Arithmetic             Vd.<T>, Vn.<T>, Vm.<T>, where <T> is H, S
@@ -5955,6 +6255,14 @@ static inline FIXP_SGL ARMv8_sqdmulh(FIXP_SGL src1, FIXP_SGL src2)
 #define   A64_mla_lane(width, size, dst, src1, src2, index)          __A64_mla_lane(dst, src1, src2, index)
 #define __A64_mls_lane(             dst, src1, src2, index)          "MLS " #dst ", " #src1 ", " #src2 "[" #index "]\n\t"
 #define   A64_mls_lane(width, size, dst, src1, src2, index)          __A64_mls_lane(dst, src1, src2, index)
+#define __A64_smull(dst, src1, src2)                                 "SMULL " #dst ", " #src1 ", " #src2 "\n\t"
+#define A64_smull(width, size, dst, src1, src2)                        __A64_smull(dst, src1, src2)
+#define __A64_smull2(dst, src1, src2)                                "SMULL2 " #dst ", " #src1 ", " #src2 "\n\t"
+#define A64_smull2(width, size, dst, src1, src2)                        __A64_smull2(dst, src1, src2)
+#define __A64_smlal(dst, src1, src2)                                 "SMLAL " #dst ", " #src1 ", " #src2 "\n\t"
+#define A64_smlal(width, size, dst, src1, src2)                        __A64_smlal(dst, src1, src2)
+#define __A64_smlal2(dst, src1, src2)                                "SMLAL2 " #dst ", " #src1 ", " #src2 "\n\t"
+#define A64_smlal2(width, size, dst, src1, src2)                        __A64_smlal2(dst, src1, src2)
 
 #else
 #define A64_sqdmulh(       width, size, dst, src1, src2)              __A64_sqdmulh(       (INT) width, (INT) size, (INT64 &)dst, (INT64 &)src1, (INT64 &)src2);
@@ -5964,7 +6272,10 @@ static inline FIXP_SGL ARMv8_sqdmulh(FIXP_SGL src1, FIXP_SGL src2)
 #define A64_mls(width, size, dst, src1, src2)                         __A64_mls(width, size, (INT64 &) dst, (INT64 &) src1, (INT64 &) src2);
 #define A64_mla_lane(width, size, dst, src1, src2, index)             __A64_mla_lane(width, size, (INT64 &) dst, (INT64 &) src1, (INT64 &) src2, (INT) index);
 #define A64_mls_lane(width, size, dst, src1, src2, index)             __A64_mls_lane(width, size, (INT64 &) dst, (INT64 &) src1, (INT64 &) src2, (INT) index);
-
+#define A64_smull(width, size, dst, src1, src2)                       __A64_smull(width, size, (INT64 &) dst, (INT64 &) src1, (INT64 &) src2);
+#define A64_smull2(width, size, dst, src1, src2)                      __A64_smull2(width, size, (INT64 &) dst, (INT64 &) src1, (INT64 &) src2);
+#define A64_smlal(width, size, dst, src1, src2)                       __A64_smlal(width, size, (INT64 &) dst, (INT64 &) src1, (INT64 &) src2);
+#define A64_smlal2(width, size, dst, src1, src2)                      __A64_smlal2(width, size, (INT64 &) dst, (INT64 &) src1, (INT64 &) src2);
 
 static inline void __A64_sqdmulh(INT width, INT size, INT64 &dst, INT64 &src1, INT64 &src2)
 {
@@ -6225,6 +6536,179 @@ static void __A64_mls_lane(INT width, INT size, INT64 &dst, INT64 &src1, INT64 &
   }
 }
 
+static void __A64_smull(INT width, INT size, INT64 &dst, INT64 &src1, INT64 &src2)
+{            /*  8H/8B, 4S/4H or 2D/2S */
+  FDK_ASSERT((width == 32) || (width == 16) || (width == 8));  /* width of MPY sources */
+  FDK_ASSERT((size == 128));                                   /* size of all MPY output, each of 2*width */
+  INT i, num = size / (2 * width);
+  switch (width)
+  {
+    case 32:
+    {
+      INT64* Dst = (INT64*)dst;
+      INT* Src1 = (INT*)src1;
+      INT* Src2 = (INT*)src2;
+      for (i = 0; i < num; i++)
+      {
+        Dst[i] = (INT64)Src1[i] * Src2[i];
+      }
+    }
+    break;
+    case 16:
+    {
+      INT* Dst = (INT*)dst;
+      SHORT* Src1 = (SHORT*)src1;
+      SHORT* Src2 = (SHORT*)src2;
+      for (i = 0; i < num; i++)
+      {
+        Dst[i] = (INT)Src1[i] * Src2[i];
+      }
+    }
+    break;
+    case 8:
+    {
+      SHORT* Dst = (SHORT*)dst;
+      SCHAR* Src1 = (SCHAR*)src1;
+      SCHAR* Src2 = (SCHAR*)src2;
+      for (i = 0; i < num; i++)
+      {
+        Dst[i] = (SHORT)Src1[i] * Src2[i];
+      }
+    }
+    break;
+  }
+}
+
+static void __A64_smull2(INT width, INT size, INT64 &dst, INT64 &src1, INT64 &src2)
+{
+  FDK_ASSERT((width == 32) || (width == 16) || (width == 8));  /* width of MPY sources */
+  FDK_ASSERT((size == 128));                                   /* size of all MPY output, each of 2*width */
+  INT i, num = size / (2 * width);
+  switch (width)
+  {
+  case 32:
+  {
+    INT64* Dst = (INT64*)dst;
+    INT* Src1 = (INT*)src1;
+    INT* Src2 = (INT*)src2;
+    for (i = 0; i < num; i++)
+    {
+      Dst[i] = (INT64)Src1[num+i] * Src2[num+i];
+    }
+  }
+  break;
+  case 16:
+  {
+    INT* Dst = (INT*)dst;
+    SHORT* Src1 = (SHORT*)src1;
+    SHORT* Src2 = (SHORT*)src2;
+    for (i = 0; i < num; i++)
+    {
+      Dst[i] = (INT)Src1[num+i] * Src2[num+i];
+    }
+  }
+  break;
+  case 8:
+  {
+    SHORT* Dst = (SHORT*)dst;
+    SCHAR* Src1 = (SCHAR*)src1;
+    SCHAR* Src2 = (SCHAR*)src2;
+    for (i = 0; i < num; i++)
+    {
+      Dst[i] = (SHORT)Src1[num+i] * Src2[num+i];
+    }
+  }
+  break;
+  }
+
+}
+
+static void __A64_smlal(INT width, INT size, INT64 &dst, INT64 &src1, INT64 &src2)
+{            /*  8H/8B, 4S/4H or 2D/2S */
+  FDK_ASSERT((width == 32) || (width == 16) || (width == 8));  /* width of MPY sources */
+  FDK_ASSERT((size == 128));                                   /* size of all MPY output, each of 2*width */
+  INT i, num = size / (2*width);
+  switch (width)
+  {
+    case 32:
+    {
+      INT64* Dst = (INT64*)dst;
+      INT* Src1 = (INT*)src1;
+      INT* Src2 = (INT*)src2;
+      for (i = 0; i < num; i++)
+      {
+        Dst[i] += (INT64) Src1[i] * Src2[i];
+      }
+    }
+    break;
+    case 16:
+    {
+      INT* Dst = (INT*)dst;
+      SHORT* Src1 = (SHORT*)src1;
+      SHORT* Src2 = (SHORT*)src2;
+      for (i = 0; i < num; i++)
+      {
+        Dst[i] += (INT) Src1[i] * Src2[i];
+      }
+    }
+    break;
+    case 8:
+    {
+      SHORT* Dst = (SHORT*)dst;
+      SCHAR* Src1 = (SCHAR*)src1;
+      SCHAR* Src2 = (SCHAR*)src2;
+      for (i = 0; i < num; i++)
+      {
+        Dst[i] += (SHORT) Src1[i] * Src2[i];
+      }
+    }
+    break;
+  }
+}
+
+static void __A64_smlal2(INT width, INT size, INT64& dst, INT64& src1, INT64& src2)
+{
+  FDK_ASSERT((width == 32) || (width == 16) || (width == 8));  /* width of MPY sources */
+  FDK_ASSERT((size == 128));                                   /* size of all MPY output, each of 2*width */
+  INT i, num = size / (2 * width);
+  switch (width)
+  {
+    case 32:
+    {
+      INT64* Dst = (INT64*)dst;
+      INT* Src1 = (INT*)src1;
+      INT* Src2 = (INT*)src2;
+      for (i = 0; i < num; i++)
+      {
+        Dst[i] += (INT64)Src1[num+i] * Src2[num+i];
+      }
+      break;
+    }
+    case 16:
+    {
+      INT* Dst = (INT*)dst;
+      SHORT* Src1 = (SHORT*)src1;
+      SHORT* Src2 = (SHORT*)src2;
+      for (i = 0; i < num; i++)
+      {
+        Dst[i] += (INT)Src1[num+i] * Src2[num+i];
+      }
+      break;
+    }
+    case 8:
+    {
+      SHORT* Dst = (SHORT*)dst;
+      SCHAR* Src1 = (SCHAR*)src1;
+      SCHAR* Src2 = (SCHAR*)src2;
+      for (i = 0; i < num; i++)
+      {
+        Dst[i] += (SHORT)Src1[num+i] * Src2[num+i];
+      }
+      break;
+    }
+  }
+}
+
 
 #endif /*  __ARM_AARCH64_NEON__ */
 
@@ -6333,6 +6817,21 @@ static inline void __A64_trn1(INT width, INT size, INT64 *dst, INT64 &src1, INT6
       {
           Dst[2*i+0] = Src1[2*i+0];
           Dst[2*i+1] = Src2[2*i+0];
+      }
+      dst[0] = tmp[0];
+      if (num == 2)
+        dst[1] = tmp[1];
+    }
+    break;
+    case 64:
+    {
+      INT64 *Dst  = (INT64 *)&tmp;
+      INT64 *Src1 = (INT64 *)src1;
+      INT64 *Src2 = (INT64 *)src2;
+      for (i = 0; i < num; i++)
+      {
+        Dst[2 * i + 0] = Src1[2 * i + 0];
+        Dst[2 * i + 1] = Src2[2 * i + 0];
       }
       dst[0] = tmp[0];
       if (num == 2)
@@ -6773,45 +7272,56 @@ static inline void __A64_uzp2(INT width, INT size, INT64 *dst, INT64 &src1, INT6
 #define __A64_sub_Xt_lsr_imm(Xd, Xn, Xm, uimm)     "SUB  " #Xd ", " #Xn ", " #Xm ", LSR # " #uimm " \n\t"
 #define __A64_add_Xt_sxtw(   Xd, Xn, Wm)           "ADD  " #Xd ", " #Xn ", " #Wm ", SXTW\n\t"
 
-#define A64_adds_Xt_asr_imm(Xd, Xn, Xm, uimm)    __A64_adds_Xt_asr_imm(Xd, Xn, Xm, uimm)
-#define A64_adds_Xt_lsl_imm(Xd, Xn, Xm, uimm)    __A64_adds_Xt_lsl_imm(Xd, Xn, Xm, uimm)
-#define A64_adds_Xt_lsr_imm(Xd, Xn, Xm, uimm)    __A64_adds_Xt_lsr_imm(Xd, Xn, Xm, uimm)
-#define A64_adds_Wt_asr_imm(Wd, Wn, Wm, uimm)    __A64_adds_Wt_asr_imm(Wd, Wn, Wm, uimm)
-#define A64_adds_Wt_lsl_imm(Wd, Wn, Wm, uimm)    __A64_adds_Wt_lsl_imm(Wd, Wn, Wm, uimm)
-#define A64_adds_Wt_lsr_imm(Wd, Wn, Wm, uimm)    __A64_adds_Wt_lsr_imm(Wd, Wn, Wm, uimm)
-#define A64_add_Xt_asr_imm(Xd, Xn, Xm, uimm)     __A64_add_Xt_asr_imm(Xd, Xn, Xm, uimm)
-#define A64_add_Xt_lsl_imm(Xd, Xn, Xm, uimm)     __A64_add_Xt_lsl_imm(Xd, Xn, Xm, uimm)
-#define A64_add_Xt_lsr_imm(Xd, Xn, Xm, uimm)     __A64_add_Xt_lsr_imm(Xd, Xn, Xm, uimm)
-#define A64_sub_Xt_asr_imm(Xd, Xn, Xm, uimm)     __A64_sub_Xt_asr_imm(Xd, Xn, Xm, uimm)
-#define A64_sub_Xt_lsl_imm(Xd, Xn, Xm, uimm)     __A64_sub_Xt_lsl_imm(Xd, Xn, Xm, uimm)
-#define A64_sub_Xt_lsr_imm(Xd, Xn, Xm, uimm)     __A64_sub_Xt_lsr_imm(Xd, Xn, Xm, uimm)
-#define A64_add_Xt_sxtw(Xd, Xn, Wm)              __A64_add_Xt_sxtw(Xd, Xn, Wm)
+#define A64_adds_Xt_asr_imm(Xd, Xn, Xm, uimm)     __A64_adds_Xt_asr_imm(Xd, Xn, Xm, uimm)
+#define A64_adds_Xt_lsl_imm(Xd, Xn, Xm, uimm)     __A64_adds_Xt_lsl_imm(Xd, Xn, Xm, uimm)
+#define A64_adds_Xt_lsr_imm(Xd, Xn, Xm, uimm)     __A64_adds_Xt_lsr_imm(Xd, Xn, Xm, uimm)
+#define A64_adds_Wt_asr_imm(Wd, Wn, Wm, uimm)     __A64_adds_Wt_asr_imm(Wd, Wn, Wm, uimm)
+#define A64_adds_Wt_lsl_imm(Wd, Wn, Wm, uimm)     __A64_adds_Wt_lsl_imm(Wd, Wn, Wm, uimm)
+#define A64_adds_Wt_lsr_imm(Wd, Wn, Wm, uimm)     __A64_adds_Wt_lsr_imm(Wd, Wn, Wm, uimm)
+#define A64_add_Xt_asr_imm(Xd, Xn, Xm, uimm)      __A64_add_Xt_asr_imm(Xd, Xn, Xm, uimm)
+#define A64_add_Xt_lsl_imm(Xd, Xn, Xm, uimm)      __A64_add_Xt_lsl_imm(Xd, Xn, Xm, uimm)
+#define A64_add_Xtp_lsl_imm(Xd, Xn, Xm, uimm, sc) __A64_add_Xt_lsl_imm(Xd, Xn, Xm, uimm)
+#define A64_add_Xt_lsr_imm(Xd, Xn, Xm, uimm)      __A64_add_Xt_lsr_imm(Xd, Xn, Xm, uimm)
+#define A64_sub_Xt_asr_imm(Xd, Xn, Xm, uimm)      __A64_sub_Xt_asr_imm(Xd, Xn, Xm, uimm)
+#define A64_sub_Xt_lsl_imm(Xd, Xn, Xm, uimm)      __A64_sub_Xt_lsl_imm(Xd, Xn, Xm, uimm)
+#define A64_sub_Xtp_lsl_imm(Xd, Xn, Xm, uimm, sc) __A64_sub_Xt_lsl_imm(Xd, Xn, Xm, uimm)
+#define A64_sub_Xt_lsr_imm(Xd, Xn, Xm, uimm)      __A64_sub_Xt_lsr_imm(Xd, Xn, Xm, uimm)
+#define A64_add_Xt_sxtw(Xd, Xn, Wm, sc)           __A64_add_Xt_sxtw(Xd, Xn, Wm)
 
 
 #else
 /* Example: Add shifted register to any number/counter */
 #define A64_adds_Xt_asr_imm(Xd, Xn, Xm, uimm)  { FDK_ASSERT((uimm >= 0) && (uimm <= 63));  Xd = ARMv8_adds_Xt((INT64)Xn, (INT64)Xm >> uimm);  }
+#define A64_adds_Xt_lsr_imm(Xd, Xn, Xm, uimm)  { FDK_ASSERT((uimm >= 0) && (uimm <= 63));  Xd = ARMv8_adds_Xt((INT64)Xn,(UINT64)Xm >> uimm);  }
+#define A64_adds_Xt_lsl_imm(Xd, Xn, Xm, uimm)  { FDK_ASSERT((uimm >= 0) && (uimm <= 63));  Xd = ARMv8_adds_Xt((INT64)Xn, (INT64)Xm << uimm);  }
+#define A64_adds_Wt_lsl_imm(Wd, Wn, Wm, uimm)  { FDK_ASSERT((uimm >= 0) && (uimm <= 31));  Wd = ARMv8_adds_Wt((INT)Wn, (INT)Wm << uimm);  }
 /* Example: Add shifted offset to pointer: ptr = buffer + offset;  uimm-scale must be gretaer/equal zero */
 #define A64_add_Xt_asr_imm(Xd, Xn, Xm, uimm)  { FDK_ASSERT((uimm >= 0) && (uimm <= 63));  \
                                                        FDK_ASSERT((uimm) >= 0);            \
                                                        Xd = (INT64) Xn + ((INT64) Xm >> (uimm));  }
 #define A64_add_Xt_lsl_imm(Xd, Xn, Xm, uimm)  { FDK_ASSERT((uimm >= 0) && (uimm <= 63));  \
                                                        FDK_ASSERT((uimm) >= 0);            \
-                                                       Xd = (INT64) Xn + (INT64) ((INT64) Xm << (uimm));  }
+                                                       Xd = (INT64)Xn + (INT64)((INT64)Xm << (uimm));  }
+#define A64_add_Xtp_lsl_imm(Xd, Xn, Xm, uimm, sc) { FDK_ASSERT((uimm >= 0) && (uimm <= 63));  \
+                                                       FDK_ASSERT((uimm) >= 0);            \
+                                                       Xd = Xn + (INT64)(((INT64)Xm << (uimm))>>sc);  }
 #define A64_add_Xt_lsr_imm(Xd, Xn, Xm, uimm)  { FDK_ASSERT((uimm >= 0) && (uimm <= 63));  \
                                                        FDK_ASSERT((uimm) >= 0);            \
-                                                       Xd = (INT64)Xn + (INT64)((UINT64) Xm >> (uimm));  }
+                                                       Xd = ((INT64)Xn + (INT64)((UINT64) Xm >> (uimm)));  }
 /* Example: Subtract shifted offset from pointer: ptr = buffer - offset;  uimm-scale must be gretaer/equal zero */
 #define A64_sub_Xt_asr_imm(Xd, Xn, Xm, uimm)  { FDK_ASSERT((uimm >= 0) && (uimm <= 63));  \
                                                        FDK_ASSERT((uimm) >= 0);            \
                                                        Xd = (INT64)Xn - ((INT64)Xm >> (uimm));  }
 #define A64_sub_Xt_lsl_imm(Xd, Xn, Xm, uimm)  { FDK_ASSERT((uimm >= 0) && (uimm <= 63));  \
                                                        FDK_ASSERT((uimm) >= 0);            \
-                                                       Xd = (INT64)Xn - ((INT64)Xm << (uimm));  }
+                                                       Xd = ((INT64) Xn - (INT64)((INT64)Xm << (uimm)));  }
+#define A64_sub_Xtp_lsl_imm(Xd, Xn, Xm, uimm, sc) { FDK_ASSERT((uimm >= 0) && (uimm <= 63));  \
+                                                       FDK_ASSERT((uimm) >= 0);            \
+                                                       Xd = Xn - (INT64)(((INT64)Xm << (uimm)) >> sc);  }
 #define A64_sub_Xt_lsr_imm(Xd, Xn, Xm, uimm)  { FDK_ASSERT((uimm >= 0) && (uimm <= 63));  \
                                                        FDK_ASSERT((uimm) >= 0);            \
                                                        Xd = (INT64)Xn - (INT64)((UINT64) Xm >> (uimm));  }
-#define A64_add_Xt_sxtw(Xd, Xn, Wm)           {        Xd = (INT64) Xn + (INT64) (INT) Wm;   }
+#define A64_add_Xt_sxtw(Xd, Xn, Wm, sc)       {        Xd = Xn + (Wm >> sc);   }
 #endif
 
 #ifdef __ARM_AARCH64_NEON__
@@ -6868,6 +7378,8 @@ static inline void __A64_uzp2(INT width, INT size, INT64 *dst, INT64 &src1, INT6
 #define __A64_sshl(dst, src1, src2)                  "SSHL " #dst ", " #src1 ", " #src2 " \n\t"
 #define A64_sshl(width, size, dst, src1, src2)        __A64_sshl(dst, src1, src2)
 #define A64_lsrv_Wt(dst, src1, src2)                  "LSRV " #dst ", " #src1 ", " #src2 " \n\t"
+#define __A64_ssra_imm(dst, src, imm)                 "SSRA " #dst ", " #src ", " #imm " \n\t"
+#define A64_ssra_imm(width, size, dst, src, imm)      __A64_ssra_imm(dst, src, imm)
 #else
 #define A64_shl_imm(width, size, dst, src, imm)      __A64_shl_imm((INT) width, (INT) size, (INT64 &) dst, (INT64 &) src, (INT64) imm);
 #define A64_sqshl(width, size, dst, src1, src2)      __A64_sqshl((INT) width, (INT) size, (INT64 &) dst, (INT64 &) src1, (INT64 &) src2);
@@ -6877,6 +7389,7 @@ static inline void __A64_uzp2(INT width, INT size, INT64 *dst, INT64 &src1, INT6
 #define A64_sshr_imm(width, size, dst, src, imm)     __A64_sshr_imm((INT) width, (INT) size, (INT64 &) dst, (INT64 &) src, (INT64) imm);
 #define A64_sshl(width, size, dst, src1, src2)       __A64_sshl((INT) width, (INT) size, (INT64 &) dst, (INT64 &) src1,(INT64 &) src2);
 #define A64_lsrv_Wt(dst, src1, src2)                 { dst = (UINT) src1 >> ((UINT) src2 & 0x1F); }
+#define A64_ssra_imm(width, size, dst, src, imm)     __A64_ssra_imm((INT) width, (INT) size, (INT64 &) dst, (INT64 &) src, (INT64) imm);
 
 static inline void __A64_shl_imm(INT width, INT size, INT64 &dst, INT64 &src, INT64 imm)
 {
@@ -7106,6 +7619,58 @@ static inline void __A64_sshr_imm(INT width, INT size, INT64 &dst, INT64 &src, I
   }
 }
 
+static inline void __A64_ssra_imm(INT width, INT size, INT64& dst, INT64& src, INT64 imm)
+{
+  FDK_ASSERT((width == 64) || (width == 32) || (width == 16) || (width == 8));
+  FDK_ASSERT((size == 128) || (size == 64));
+  FDK_ASSERT((imm >= 0) && (imm < width));
+  INT i, num = size / width;
+  switch (width)
+  {
+  case 64:
+  {
+    INT64* Dst = (INT64*)dst;
+    INT64* Src = (INT64*)src;
+    for (i = 0; i < num; i++)
+    {
+      Dst[i] += Src[i] >> imm;
+    }
+  }
+  break;
+  case 32:
+  {
+    INT* Dst = (INT*)dst;
+    INT* Src = (INT*)src;
+    for (i = 0; i < num; i++)
+    {
+      Dst[i] += Src[i] >> imm;
+    }
+  }
+  break;
+  case 16:
+  {
+    SHORT* Dst = (SHORT*)dst;
+    SHORT* Src = (SHORT*)src;
+    for (i = 0; i < num; i++)
+    {
+      Dst[i] += Src[i] >> imm;
+    }
+  }
+  break;
+  case 8:
+  {
+    SCHAR* Dst = (SCHAR*)dst;
+    SCHAR* Src = (SCHAR*)src;
+    for (i = 0; i < num; i++)
+    {
+      Dst[i] += Src[i] >> imm;
+    }
+  }
+  break;
+  }
+}
+
+
 static inline void __A64_sshl(INT width, INT size, INT64 &dst, INT64 &src1, INT64 &src2)
 {
   FDK_ASSERT((width == 64) || (width == 32) || (width == 16) || (width == 8));
@@ -7234,19 +7799,30 @@ static inline void __A64_sshr(INT width, INT size, INT64 &dst, INT64 &src1, INT6
 #endif
 
 #ifdef __ARM_AARCH64_NEON__
-#define __A64_ands_Xt_imm(dst, src, imm)    "ANDS " #dst ", " #src ",  # " #imm "  \n\t"
-#define __A64_ands_Wt_imm(dst, src, imm)    "ANDS " #dst ", " #src ",  # " #imm "  \n\t"
-#define A64_ands_Xt_imm(dst, src, imm)      __A64_ands_Xt_imm(dst, src, imm)
-#define A64_ands_Wt_imm(dst, src, imm)      __A64_ands_Wt_imm(dst, src, imm)
-#define __A64_and_Xt_imm(dst, src, imm)    "AND " #dst ", " #src ",  # " #imm "  \n\t"
-#define __A64_and_Wt_imm(dst, src, imm)    "AND " #dst ", " #src ",  # " #imm "  \n\t"
-#define A64_and_Xt_imm(dst, src, imm)      __A64_and_Xt_imm(dst, src, imm)
-#define A64_and_Wt_imm(dst, src, imm)      __A64_and_Wt_imm(dst, src, imm)
+#define __A64_ands_Xt_imm(dst, src, imm)           "ANDS " #dst ", " #src ",  # " #imm "  \n\t"
+#define __A64_ands_Wt_imm(dst, src, imm)           "ANDS " #dst ", " #src ",  # " #imm "  \n\t"
+#define A64_ands_Xt_imm(dst, src, imm)             __A64_ands_Xt_imm(dst, src, imm)
+#define A64_ands_Wt_imm(dst, src, imm)             __A64_ands_Wt_imm(dst, src, imm)
+
+#define __A64_and_Xt_imm(dst, src, imm)            "AND " #dst ", " #src ",  # " #imm "  \n\t"
+#define __A64_and_Wt_imm(dst, src, imm)            "AND " #dst ", " #src ",  # " #imm "  \n\t"
+#define A64_and_Xt_imm(dst, src, imm)              __A64_and_Xt_imm(dst, src, imm)
+#define A64_and_Wt_imm(dst, src, imm)              __A64_and_Wt_imm(dst, src, imm)
+
+#define __A64_and_Xt_lsl_imm(Xd, Xn, Xm, imm)      "AND  " #Xd ", " #Xn ", " #Xm ", LSL # " #imm " \n\t"
+#define __A64_and_Xt_lsr_imm(Xd, Xn, Xm, imm)      "AND  " #Xd ", " #Xn ", " #Xm ", LSR # " #imm " \n\t"
+#define A64_and_Xt_lsl_imm(Xd, Xn, Xm, imm)        __A64_and_Xt_lsl_imm(Xd, Xn, Xm, imm)
+#define A64_and_Xt_lsr_imm(Xd, Xn, Xm, imm)        __A64_and_Xt_lsr_imm(Xd, Xn, Xm, imm)
+
 #else
-#define A64_and_Xt_imm(Xd, Xm, imm)       __A64_and_Xt_imm((INT64 &) Xd, (INT64 &) Xm, (INT64) imm);
-#define A64_and_Wt_imm(Wd, Wm, imm)       __A64_and_Wt_imm((INT &) Wd, (INT &) Wm, (INT64) imm);
-#define A64_ands_Xt_imm(Xd, Xm, imm)      __A64_ands_Xt_imm((INT64 &) Xd, (INT64 &) Xm, (INT64) imm);
-#define A64_ands_Wt_imm(Wd, Wm, imm)      __A64_ands_Wt_imm((INT &) Wd, (INT &) Wm, (INT64) imm);
+#define A64_and_Xt_imm(Xd, Xm, imm)          __A64_and_Xt_imm((INT64 &) Xd, (INT64 &) Xm, (INT64) imm);
+#define A64_and_Wt_imm(Wd, Wm, imm)          __A64_and_Wt_imm((INT &) Wd, (INT &) Wm, (INT64) imm);
+#define A64_ands_Xt_imm(Xd, Xm, imm)         __A64_ands_Xt_imm((INT64 &) Xd, (INT64 &) Xm, (INT64) imm);
+#define A64_ands_Wt_imm(Wd, Wm, imm)         __A64_ands_Wt_imm((INT &) Wd, (INT &) Wm, (INT64) imm);
+#define A64_and_Xt_lsl_imm(Xd, Xn, Xm, imm)  { FDK_ASSERT((imm >= 0) && (imm <= 63));  \
+                                                Xd = (INT64) Xn & (INT64)((INT64) Xm << (imm));  }
+#define A64_and_Xt_lsr_imm(Xd, Xn, Xm, imm)  { FDK_ASSERT((imm >= 0) && (imm <= 63));  \
+                                                Xd = (INT64) Xn & (INT64)((INT64) Xm >> (imm));  }
 
 static inline void __A64_and_Xt_imm(INT64 &Xd, INT64 &Xm, INT64 imm)
 {
@@ -7275,7 +7851,6 @@ extern INT* __WZR;
       Wd = result;
     }
 }
-
 
 static inline void __A64_ands_Xt_imm(INT64 &Xd, INT64 &Xm, INT64 imm)
 {
@@ -7320,15 +7895,71 @@ extern INT * __WZR;
 #endif
 
 #ifdef __ARM_AARCH64_NEON__
+#define __A64_clz(dst, src)             "CLZ " #dst ", " #src " \n\t"
+#define A64_clz(width, size, dst, src)  __A64_clz(dst, src)
+
 #define A64_clz_Xt(Xd, Xm)              "CLZ " #Xd ", " #Xm " \n\t"
 #define A64_clz_Wt(Wd, Wm)              "CLZ " #Wd ", " #Wm " \n\t"
 #define A64_rbit_Xt(Xd, Xm)             "RBIT " #Xd ", " #Xm " \n\t"
 #define A64_rbit_Wt(Wd, Wm)             "RBIT " #Wd ", " #Wm " \n\t"
 #else
+#define A64_clz(width, size, dst, src)   {FDK_ASSERT((size == 128) || (size == 64)); \
+                                               if (size == 128)  { if (width == 32) { __FDK_vclz_32_q((A64_V)dst, (A64_V)src); } else if (width == 16)  { __FDK_vclz_16_q((A64_V)dst, (A64_V)src); } else if (width == 8) { __FDK_vclz_8_q((A64_V)dst, (A64_V)src); } }\
+                                          else if (size == 64)   { if (width == 32) { __FDK_vclz_32_d((A64_X)dst, (A64_X)src); } else if (width == 16)  { __FDK_vclz_16_d((A64_X)dst, (A64_X)src); } else if (width == 8) { __FDK_vclz_8_d((A64_X)dst, (A64_X)src); } }\
+                                         }
 #define A64_clz_Xt(Xd, Xm)               Xd = fNormz64(Xm);
 #define A64_clz_Wt(Wd, Wm)               Wd = fNormz(Wm);
 #define A64_rbit_Xt(Xd, Xm)              Xd = __A64_rbit_Xt((UINT64) Xm);
 #define A64_rbit_Wt(Wd, Wm)              Wd = __A64_rbit_Wt((UINT) Wm);
+
+static void inline __FDK_vclz_32_q(A64_V dst, A64_V src)
+{
+  A64_S *Src = (A64_S *) src;
+  A64_S *Dst = (A64_S *) dst;
+
+  for (int i = 0; i < 4; i++)
+    Dst[i] = (A64_S) CntLeadingZeros(Src[i]);
+}
+static void inline __FDK_vclz_32_d(A64_X dst, A64_X src)
+{
+  A64_S *Src = (A64_S *) src;
+  A64_S *Dst = (A64_S *) dst;
+
+  for (int i = 0; i < 2; i++)
+    Dst[i] = (A64_S) CntLeadingZeros(Src[i]);
+}
+static void inline __FDK_vclz_16_q(A64_V dst, A64_V src)
+{
+  A64_H *Src = (A64_H *) src;
+  A64_H *Dst = (A64_H *) dst;
+
+  for (int i = 0; i < 8; i++)
+      Dst[i] = (A64_H) CntLeadingZeros(((INT)Src[i] << 16) | 0x00008000);
+}
+static void inline __FDK_vclz_16_d(A64_X dst, A64_X src)
+{
+  A64_H *Src = (A64_H *) src;
+  A64_H *Dst = (A64_H *) dst;
+
+  for (int i = 0; i < 4; i++)
+    Dst[i] = (A64_H) CntLeadingZeros(((INT) Src[i] << 16) | 0x00008000);
+}
+static void inline __FDK_vclz_8_q(A64_V dst, A64_V src)
+{
+  A64_B Src = (A64_B) src;
+  A64_B Dst = (A64_B) dst;
+
+  for (int i = 0; i < 16; i++)
+      Dst[i] = CntLeadingZeros((((INT)(Src[i])) << 24) | 0x00800000);
+}
+static void inline __FDK_vclz_8_d(A64_X dst, A64_X src)
+{
+  A64_B Src = (A64_B) src;
+  A64_B Dst = (A64_B) dst;
+
+  for (int i = 0; i < 8; i++)
+    Dst[i] = CntLeadingZeros((((INT)(Src[i])) << 24) | 0x00800000);
+}
 
 static inline UINT64 __A64_rbit_Xt(UINT64 Xm)
 {
@@ -7409,12 +8040,12 @@ static inline UINT __A64_rbit_Wt(UINT Wm)
 #define A64_sub_Wt_imm(dst, src, immediate)   { dst = (INT)src - (INT)(immediate); }
 #define A64_sub_Xt(dst, src1, src2)           { dst = (INT64) src1 - (INT64) src2; }
 #define A64_sub_Wt(dst, src1, src2)           { extern INT * __WZR;  \
-                                                if (&src1 == (INT64 *) __WZR) \
+                                                if ((INT64 *) (&src1) == (INT64 *) __WZR) \
                                                  dst = (INT64) ((INT) 0 - (INT) src2) & ((INT64) 0x00000000FFFFFFFF); \
                                                 else \
                                                  dst = (INT64) ((INT) src1 - (INT) src2) & ((INT64) 0x00000000FFFFFFFF); \
                                               }
-#define A64_add_Xt_imm(dst, src, immediate)   { dst = (INT64) src + (INT64)(immediate); }
+#define A64_add_Xt_imm(dst, src, immediate)   { dst = src + (INT64)(immediate)/sizeof(src[0]); }
 #define A64_add_Wt_imm(dst, src, immediate)   { dst = (INT)src + (INT)(immediate); }
 #endif
 
@@ -7429,11 +8060,13 @@ static inline UINT __A64_rbit_Wt(UINT Wm)
 #define __A64_cmp_Xt_imm(src, immediate)     "CMP " #src ", # " #immediate "\n\t"
 #define __A64_cmp_Wt_imm(src, immediate)     "CMP " #src ", # " #immediate "\n\t"
 #define __A64_cmp_Xt(src1, src2)             "CMP " #src1 ", " #src2 "\n\t"
+#define __A64_cmp_Wt(src1, src2)             "CMP " #src1 ", " #src2 "\n\t"
 #define __A64_cmp_Xt_X_ASR(src1, src2, src3) "CMP " #src1 ", " #src2 " ASR " #src3 "\n\t"
 #define A64_cmp_Xt_imm(src, immediate)     __A64_cmp_Xt_imm(src, immediate)
 #define A64_cmp_Wt_imm(src, immediate)     __A64_cmp_Wt_imm(src, immediate)
 #define A64_cmp_Xt(src1, src2)             __A64_cmp_Xt(src1, src2)
 #define A64_cmp_Xt_X_ASR(src1, src2, src3) __A64_cmp_Xt_X_ASR(src1, src2, src3)
+#define A64_cmp_Wt(src1, src2)             __A64_cmp_Wt(src1, src2)
 #else
 #define A64_cmp_Xt_imm(src, immediate)  {__FDK_coreflags_EQ = (INT64(src) == (INT64)(immediate)) ? 1 : 0; \
                                          __FDK_coreflags_NE = (INT64(src) != (INT64)(immediate)) ? 1 : 0; \
@@ -7557,11 +8190,19 @@ static inline UINT __A64_rbit_Wt(UINT Wm)
 
 
 #if defined (__ARM_AARCH64_NEON__) && defined (__GNUC__)
+#ifdef __cplusplus
 #define A64_ASM_ROUTINE_START(proc_type, proc_name, proc_args)   \
                              extern "C" { proc_type proc_name proc_args;   }  \
                              asm ( "\n\t" \
                              ".section .text\n\t" \
                              "" #proc_name ": \n\t"
+#else
+#define A64_ASM_ROUTINE_START(proc_type, proc_name, proc_args)   \
+                             proc_type proc_name proc_args;    \
+                             __asm__ ( "\n\t" \
+                             ".section .text\n\t" \
+                             "" #proc_name ": \n\t"
+#endif                             
 #define A64_ASM_ROUTINE_END()               A64_return()  );
 #define A64_ASM_ROUTINE_RETURN(proc_type)   A64_return()  \
                                            );
