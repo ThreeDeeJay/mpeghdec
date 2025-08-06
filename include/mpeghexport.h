@@ -1,7 +1,7 @@
 /*-----------------------------------------------------------------------------
 Software License for The Fraunhofer FDK MPEG-H Software
 
-Copyright (c) 2018 - 2023 Fraunhofer-Gesellschaft zur Förderung der angewandten
+Copyright (c) 2018 - 2025 Fraunhofer-Gesellschaft zur Förderung der angewandten
 Forschung e.V. and Contributors
 All rights reserved.
 
@@ -80,77 +80,26 @@ www.iis.fraunhofer.de/amm
 amm-info@iis.fraunhofer.de
 -----------------------------------------------------------------------------*/
 
-// system includes
-#include <iostream>
+#ifndef MPEGH_EXPORT_H
+#define MPEGH_EXPORT_H
 
-// external includes
-#include "ilo/memory.h"
-#include "mmtisobmff/logging.h"
+/**
+ * @file   mpeghexport.h
+ * @brief  Symbol export definitions for the public API of the mpeghdec library.
+ */
 
-// project includes
-#include "mpeghUiManagerProcessor.h"
-#include "mpeghUIManager.h"
-#include "sys/cmdl_parser.h"
-#include "sys/genericStds.h"
+#if defined _WIN32 || defined __CYGWIN__
+#if defined MPEGHDEC_STATIC
+#define MPEGHDEC_EXPORT /* nothing */
+#elif defined MPEGHDEC_INTERNAL
+// Building the library itself
+#define MPEGHDEC_EXPORT __declspec(dllexport)
+#else
+// Consuming the library
+#define MPEGHDEC_EXPORT __declspec(dllimport)
+#endif
+#else
+#define MPEGHDEC_EXPORT __attribute__((visibility("default")))
+#endif
 
-/*************************** function declarations ***************************/
-static void cmdlHelp(const char* progname);
-
-int main(int argc, char** argv) {
-  // Configure mmtisobmff logging to your liking (logging to file, system, console or disable)
-  mmt::isobmff::disableLogging();
-
-  char inputFilename[CMDL_MAX_STRLEN] = "";
-  char outputFilename[CMDL_MAX_STRLEN] = "";
-  char scriptFilename[CMDL_MAX_STRLEN] = "";
-  char xmlSceneStateFilename[CMDL_MAX_STRLEN] = "";
-  char persistFilename[CMDL_MAX_STRLEN] = "";
-  uint32_t helpMode = 0;
-
-  // Check if helpMode was set.
-  IIS_ScanCmdl(argc, argv, "(-h %1)", &helpMode);
-  if (helpMode) {
-    cmdlHelp(argv[0]);
-    return FDK_EXITCODE_OK;
-  }
-
-  // Check if we got the mandatory input and output parameters.
-  if (IIS_ScanCmdl(argc, argv, "-if %s -of %s", inputFilename, outputFilename) < 2) {
-    cmdlHelp(argv[0]);
-    return FDK_EXITCODE_USAGE;
-  }
-
-  // Parse optional command line parameters.
-  IIS_ScanCmdl(argc, argv, "(-script %s)", scriptFilename);
-  IIS_ScanCmdl(argc, argv, "(-xmlSceneState %s)", xmlSceneStateFilename);
-  IIS_ScanCmdl(argc, argv, "(-persistFile %s)", persistFilename);
-
-  std::cout << "Input file:  " << inputFilename << std::endl;
-  std::cout << "Output file: " << outputFilename << std::endl;
-
-  // Initialize and process.
-  try {
-    // initialize
-    CUIManagerProcessor processor(inputFilename, outputFilename, scriptFilename, persistFilename,
-                                  xmlSceneStateFilename);
-    // process
-    processor.process();
-  } catch (const std::exception& e) {
-    std::cout << std::endl << "Error: " << e.what() << std::endl << std::endl;
-    return FDK_EXITCODE_SOFTWARE;
-  } catch (...) {
-    std::cout << std::endl
-              << "Error: An unknown error happened. The program will exit now." << std::endl
-              << std::endl;
-    return FDK_EXITCODE_UNAVAILABLE;
-  }
-  return FDK_EXITCODE_OK;
-}
-
-static void cmdlHelp(const char* progname) {
-  std::cout << std::endl
-            << "Usage: " << progname
-            << " -if <input file> -of <output file> [-script <interactivity "
-               "script>][-xmlSceneState <XML output>][-persistFile <filename>]"
-            << std::endl;
-}
+#endif /* MPEGH_EXPORT_H */

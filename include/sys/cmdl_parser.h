@@ -102,6 +102,7 @@ amm-info@iis.fraunhofer.de
 #define CMDL_PARSER_H
 
 #include "machine_type.h"
+#include "mpeghexport.h"
 
 #define CMDL_MAX_STRLEN 511
 #define CMDL_MAX_ARGC 64
@@ -156,7 +157,7 @@ extern "C" {
  *
  * \return  Number of found arguments.
  */
-INT IIS_ScanCmdl(INT argc, TEXTCHAR* argv[], const TEXTCHAR* pReqArgs, ...);
+MPEGHDEC_EXPORT INT IIS_ScanCmdl(INT argc, TEXTCHAR* argv[], const TEXTCHAR* pReqArgs, ...);
 
 typedef int (*iis_process_commandline_function)(int, TEXTCHAR**);
 
@@ -169,7 +170,8 @@ typedef int (*iis_process_commandline_function)(int, TEXTCHAR**);
  *
  * \return  0 on success, 1 on failure.
  */
-INT IIS_ProcessCmdlList(const TEXTCHAR* param_filename, iis_process_commandline_function pFunction);
+MPEGHDEC_EXPORT INT IIS_ProcessCmdlList(const TEXTCHAR* param_filename,
+                                        iis_process_commandline_function pFunction);
 #ifdef __cplusplus
 }
 #endif

@@ -192,7 +192,6 @@ typedef struct {
   INT AccumulatedFrameSize; /* Amount of buffered earcon samples in EarconData. Stereo samples
                                account as 2. */
   INT BaseframeSize;
-  INT StartDelay;
   INT TruncationPresent;
   INT numPcmSignalsInFrame; /* Current amount of earcon signals */
   INT numPcmSignals_old;    /* Past amount of earcon signals */
@@ -211,7 +210,7 @@ typedef EarconDecoder* HANDLE_EARCONDECODER;
 TRANSPORTDEC_ERROR PcmDataPayload(EarconDecoder* earconDecoder, FIXP_DBL* TimeData,
                                   UINT BaseframeSize, SCHAR drcStatus_targetLoudness,
                                   SCHAR defaultTargetLoudness, INT targetLayout,
-                                  SHORT truncateFrameSize);
+                                  SHORT LastFrameSamples, SHORT NewFrameSamples);
 
 /* AAC decoder (opaque toward userland) struct declaration */
 struct AAC_DECODER_INSTANCE {
@@ -329,11 +328,14 @@ struct AAC_DECODER_INSTANCE {
   UCHAR
   applyCrossfade; /*!< If any bit is set, cross-fade for seamless stream switching is applied */
 
-  SHORT truncateStartOffset, truncateStopOffset; /*!< Truncation point offsets in samples relative
-                                                    to start of current frame */
-  SHORT truncateFrameSize;
-  SHORT truncateSampleCount;
-  UCHAR truncateFromEndFlag;
+  /* Truncation handler queue. Offsets are relative to the current frame, before the limiter, at
+   * delay position 775. */
+#define TRUNC_QUEUE_SIZE 3
+  SHORT
+  truncateStartOffset[TRUNC_QUEUE_SIZE];      /*!< Start offset from where samples removal starts */
+  SHORT truncateStopOffset[TRUNC_QUEUE_SIZE]; /*!< Stop offset until where samples are removed */
+  SHORT truncateFrameSize;                    /*!< Size of the resulting truncated current frame. */
+  SHORT truncateSampleCount;        /*!< Amount of truncated (removed) samples of current frame */
   PCM_DEC crossfadeMem[128 * (24)]; /*!< Memory for saving samples for MPEG-H crossfade */
 
   HANDLE_UI_MANAGER hUiManager;
